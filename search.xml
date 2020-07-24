@@ -4,31 +4,6 @@
   
     
     <entry>
-      <title>hexo常用命令</title>
-      <link href="/posts/33f59116/"/>
-      <url>/posts/33f59116/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h1><ol><li>初始化： <code>hexo init</code> <ul><li>作用：初始化站点（博客），生成一个简单网站所需的各种文件</li></ul></li><li>启动服务： <code>hexo s</code> （s代表server，可写全名）<ul><li>作用：以调试模式，启动hexo服务（在本地运行博客）</li></ul></li><li>清除缓存： <code>hexo clean</code> <ul><li>作用：清除缓存（将public目录删除）</li></ul></li><li>编译文件： <code>hexo g</code> （g代表generate）<ul><li>作用：将新增、修改、更新的文件（博客），生成（编译）网站静态文件，默认都在 <code>public</code> 目录下（目录自动创建），为远程部署做铺垫</li></ul></li><li>远端部署：<code>hexo d</code>（d代表deploy，需装插件）<ul><li>作用：部署站点，在本地生成 <code>.deploy_git</code> 文件夹，并将编译后的文件上传至 <code>GitHub</code> 或 <code>Gitee</code> 等站点</li></ul></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> 个人博客 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>配置butterfly主题(二)</title>
       <link href="/posts/1a663c96/"/>
       <url>/posts/1a663c96/</url>
@@ -46,6 +21,31 @@
         <tags>
             
             <tag> butterfly主题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo常用命令</title>
+      <link href="/posts/33f59116/"/>
+      <url>/posts/33f59116/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h1><ol><li>初始化： <code>hexo init</code> <ul><li>作用：初始化站点（博客），生成一个简单网站所需的各种文件</li></ul></li><li>启动服务： <code>hexo s</code> （s代表server，可写全名）<ul><li>作用：以调试模式，启动hexo服务（在本地运行博客）</li></ul></li><li>清除缓存： <code>hexo clean</code> <ul><li>作用：清除缓存（将public目录删除）</li></ul></li><li>编译文件： <code>hexo g</code> （g代表generate）<ul><li>作用：将新增、修改、更新的文件（博客），生成（编译）网站静态文件，默认都在 <code>public</code> 目录下（目录自动创建），为远程部署做铺垫</li></ul></li><li>远端部署：<code>hexo d</code>（d代表deploy，需装插件）<ul><li>作用：部署站点，在本地生成 <code>.deploy_git</code> 文件夹，并将编译后的文件上传至 <code>GitHub</code> 或 <code>Gitee</code> 等站点</li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 个人博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
             
         </tags>
       
