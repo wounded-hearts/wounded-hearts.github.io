@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Git的安装与使用</title>
+      <link href="/posts/6536dfdf/"/>
+      <url>/posts/6536dfdf/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="安装Git（Linux系统）"><a href="#安装Git（Linux系统）" class="headerlink" title="安装Git（Linux系统）"></a>安装Git（Linux系统）</h1><ol><li>安装编译环境： yum install gcc patch libffi-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel xz-devel -y</li><li>补充编译环境： yum -y install libcurl-devel</li><li>下载Git，URL： <a href="https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.27.0.tar.xz" target="_blank" rel="noopener">https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.27.0.tar.xz</a></li><li>开始编译： ./configure –prefix=/usr/local/</li><li>构建和安装： make -y &amp;&amp; make install</li></ol><h1 id="Git的用法"><a href="#Git的用法" class="headerlink" title="Git的用法"></a>Git的用法</h1><h2 id="本地操作（Linux系统）"><a href="#本地操作（Linux系统）" class="headerlink" title="本地操作（Linux系统）"></a>本地操作（Linux系统）</h2><ol><li>初始化： git init： 创建一个空的仓库文件： .git隐藏文件（先cd到指定目录）</li><li>添加单个文件到暂存区： git add example01.py（没有任何提示即为成功添加）</li><li>添加目录下所有文件到暂存区： git add .（.代表所有的文件）</li><li>查看暂存区的状态： git status</li><li>提交代码 – git commit -m ‘完成了用户添加功能’ （第一次提交或报错，须填写邮箱和昵称）</li><li>添加提交时的邮箱： git config –global user.email “<a href="mailto:test@test.com">test@test.com</a>“</li><li>添加提交时的昵称： git config –global user.name “test”</li><li>查看提交的历史日志： git log（历史提交记录）<ul><li>commit的值： 全局唯一标识符</li></ul></li><li>查看提交的未来版本日志： git reflog</li><li>暂存区文件恢复到工作区（未提交）： git checkout 空格.（.代表所有，可替换为单个文件名）</li><li>回到历史版本（已提交）： git reset –hard 72b937（72b937代表log中 - commit的值 - 至少前6位字符）</li><li>回到最新版本（已提交）： git reset –hard HEAD^</li></ol><h2 id="服务器地址"><a href="#服务器地址" class="headerlink" title="服务器地址"></a>服务器地址</h2><ul><li>国内代码托管平台： 码云gitee / coding</li><li>URL： <a href="https://gitee.com：">https://gitee.com：</a> <a href="https://coding.net" target="_blank" rel="noopener">https://coding.net</a></li></ul><h2 id="服务器到本地（Linux系统）"><a href="#服务器到本地（Linux系统）" class="headerlink" title="服务器到本地（Linux系统）"></a><strong>服务器到本地</strong>（Linux系统）</h2><ol><li>克隆服务器文件到本地： git clone <URL>（下载文件）</li><li>开始拷贝文件： cp /root/code/* ./</li><li>添加暂存区文件： git add .</li><li>检查是否成功添加： git log 或 git reflog</li></ol><h2 id="本地到服务器（Linux系统）"><a href="#本地到服务器（Linux系统）" class="headerlink" title="本地到服务器（Linux系统）"></a>本地到服务器（Linux系统）</h2><ol><li>先从服务器到本地：</li><li>进入服务器文件目录 – cd test20200706</li><li>本地文件同步服到务器： git push（上传文件）</li><li>服务器文件同步到本地： git pull（更新本地文件）</li></ol><h2 id="本地到服务器（windows系统）"><a href="#本地到服务器（windows系统）" class="headerlink" title="本地到服务器（windows系统）"></a><strong>本地到服务器</strong>（windows系统）</h2><ol><li>通过命令git init将目录变为可以管理的git仓库： <code>git init</code> </li><li>服务器文件同步到本地： <code>git pull</code>（更新本地文件，若仓库是新建的，<strong>第一次</strong>上传，可忽略此步）</li><li>把文件提交到暂存区： <code>git add .</code></li><li>将文件提交到仓库，引号内的为描述： <code>git commit -m &#39;说明&#39;</code></li><li>关联到远程库： <code>git remote add &#39;用户名&#39; 远程库地址</code> </li><li>本地文件上传到远程仓库： <code>git push -u 用户名 master</code> （注意：每次push都要先pull，除非不删除历史记录）</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>配置butterfly主题(二)</title>
       <link href="/posts/1a663c96/"/>
       <url>/posts/1a663c96/</url>
@@ -33,7 +58,7 @@
       <link href="/posts/33f59116/"/>
       <url>/posts/33f59116/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h1><ol><li>初始化： <code>hexo init</code> <ul><li>作用：初始化站点（博客），生成一个简单网站所需的各种文件</li></ul></li><li>启动服务： <code>hexo s</code> （s代表server，可写全名）<ul><li>作用：以调试模式，启动hexo服务（在本地运行博客）</li></ul></li><li>清除缓存： <code>hexo clean</code> <ul><li>作用：清除缓存（将public目录删除）</li></ul></li><li>编译文件： <code>hexo g</code> （g代表generate）<ul><li>作用：将新增、修改、更新的文件（博客），生成（编译）网站静态文件，默认都在 <code>public</code> 目录下（目录自动创建），为远程部署做铺垫</li></ul></li><li>远端部署：<code>hexo d</code>（d代表deploy，需装插件）<ul><li>作用：部署站点，在本地生成 <code>.deploy_git</code> 文件夹，并将编译后的文件上传至 <code>GitHub</code> 或 <code>Gitee</code> 等站点</li></ul></li></ol>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h1><ol><li>初始化： <code>hexo init</code> <ul><li>作用：初始化站点（博客），生成一个简单网站所需的各种文件</li></ul></li><li>启动服务： <code>hexo s</code> （s代表server，可写全名）<ul><li>作用：以调试模式，启动hexo服务（在本地运行博客）</li></ul></li><li>清除缓存： <code>hexo clean</code> <ul><li>作用：清除缓存（将public目录删除）</li></ul></li><li>编译文件： <code>hexo g</code> （g代表generate）<ul><li>作用：将新增、修改、更新的文件（博客），生成（编译）网站静态文件，默认都在 <code>public</code> 目录下（目录自动创建），为远程部署做铺垫</li></ul></li><li>远端部署： <code>hexo d</code>（d代表deploy，需装插件）<ul><li>作用：部署站点，在本地生成 <code>.deploy_git</code> 文件夹，并将编译后的文件上传至 <code>GitHub</code> 或 <code>Gitee</code> 等站点</li></ul></li><li>新建页面： <code>hexo new page path_name</code> </li></ol>]]></content>
       
       
       <categories>
