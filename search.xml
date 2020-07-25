@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>Typora使用手册</title>
+      <link href="/posts/f0886eb5/"/>
+      <url>/posts/f0886eb5/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="多级标题"><a href="#多级标题" class="headerlink" title="多级标题"></a>多级标题</h1><ul><li>快捷键：<code>ctrl + 1~6</code> （不要使用单独的数字按键，最多只能写到六级标题）</li><li>输入法：<ol><li><code># 一级标题</code> (注意#号后面有一个空格，以下同理)</li><li><code>## 二级标题</code></li><li><code>### 三级标题</code></li><li><code>#### 四级标题</code></li><li><code>##### 五级标题</code></li><li><code>###### 六级标题</code></li></ol></li></ul><h1 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h1><ul><li>演示：<u>下划线</u></li><li>快捷键：<code>ctrl +U</code></li><li>输入法：<code>&lt;u&gt;下划线&lt;/u&gt;</code></li></ul><h1 id="字体加粗"><a href="#字体加粗" class="headerlink" title="字体加粗"></a>字体加粗</h1><ul><li>演示：<strong>字体加粗</strong></li><li>快捷键：<code>ctrl + B</code></li><li>输入法：<code>**字体加粗**</code></li></ul><h1 id="字体倾斜"><a href="#字体倾斜" class="headerlink" title="字体倾斜"></a>字体倾斜</h1><ul><li>演示：<em>字体倾斜</em></li><li>快捷键：<code>ctrl + i</code> </li><li>输入法：<code>*字体倾斜*</code></li></ul><h1 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h1><ul><li>演示：<del>删除线</del></li><li>快捷键：<code>shift + alt + 5</code> （使用%5这个按键）</li><li>输入法：<code>~~删除线~~</code></li></ul><h1 id="上下标"><a href="#上下标" class="headerlink" title="上下标"></a>上下标</h1><ul><li><p>开启上下标功能：文件 – 偏好设置 – Markdown – Markdown扩展语法（勾选上下标等信息，注意重启）</p></li><li><p>上标：</p><ol><li>演示：a^2^ + b^2^ = c^2^</li><li>输入法：<code>a^2^ + b^2^ = c^2^</code></li></ol></li><li><p>下标：</p><ol><li>演示：H<del>2</del>O</li><li>输入法：<code>H~2~O</code></li></ol></li></ul><h1 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h1><ul><li>演示（每行前面都有序号）：<ol><li>有序列表，第一行</li><li>有序列表，第二行</li><li>有序列表，第三行</li><li>有序列表，。。。</li></ol></li><li>快捷键：<code>ctrl + shift + [</code> </li><li>输入法：<code>1.空格</code> <code>100.空格</code>（编号后一定要加空格，行末enter键，序号会在当前序号添加并+1；行末上下键翻动，序号不会添加）</li><li>降级快捷键：<code>tab</code></li><li>升级快捷键：<code>shift + tab</code></li></ul><h1 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h1><ul><li>演示：<ul><li>无序列表，第一行</li><li>无序列表，第二行</li><li>无序列表，第三行</li><li>无序列表，。。。</li></ul></li><li>快捷键：<code>ctrl + shift + ]</code> </li><li>输入法：<code>*空格</code>或<code>-空格</code>（符号后一定要加空格，行末enter键，列表会自动添加一行；行末上下键翻动，列表不会添加）</li><li>降级快捷键：<code>tab</code></li><li>升级快捷键：<code>shift + tab</code></li></ul><p><strong>注意：有序列表和无序列表可交错使用</strong>（有序中有无序，无序中有有序）</p><ol><li>有序列表<ul><li>无序列表<ol><li>有序列表<ol><li>有序列表</li><li>有序列表</li></ol></li><li>有序列表</li></ol></li><li>无序列表</li></ul></li><li>有序列表<ul><li>无序列表<ul><li><input disabled="" type="checkbox"> 任务列表<ol><li>有序列表</li><li>有序列表</li></ol></li><li><input checked="" disabled="" type="checkbox"> 任务列表</li></ul></li><li>无序列表</li></ul></li><li>有序列表<ul><li>无序列表<ul><li>无序列表<ol><li>有序列表</li><li>有序列表</li></ol></li><li>无序列表</li></ul></li><li>无序列表</li><li>无序列表</li></ul></li></ol><h1 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h1><ul><li>演示（可以选择任务）：<ul><li><input disabled="" type="checkbox"> 任务列表，第一行</li><li><input checked="" disabled="" type="checkbox"> 任务列表，第二行</li><li><input checked="" disabled="" type="checkbox"> 任务列表，第三行</li><li><input disabled="" type="checkbox"> 任务列表，。。。</li></ul></li><li>快捷键：无</li><li>输入法：<code>- [ ]</code>（<strong>每一个符号</strong>后都要加一个<strong>空格隔开</strong>，行末enter键，列表会自动添加一行；行末上下键翻动，列表不会添加）</li><li>降级快捷键：<code>tab</code></li><li>升级快捷键：<code>shift + tab</code></li></ul><p><strong>注意</strong>：<strong>任务列表</strong>也可以和<strong>有序列表</strong>和<strong>无序列表</strong>一起<strong>交错使用</strong> （如上面演示）</p><h1 id="表格插入"><a href="#表格插入" class="headerlink" title="表格插入"></a>表格插入</h1><ul><li><p>演示：</p><table><thead><tr><th>学号</th><th>姓名</th><th>年龄</th></tr></thead><tbody><tr><td>1001</td><td>张三</td><td>66</td></tr><tr><td>1002</td><td>李四</td><td>88</td></tr><tr><td>1003</td><td>王五</td><td>99</td></tr></tbody></table></li></ul><ul><li><p>快捷键：<code>ctrl + T</code> </p></li><li><p>输入法：<code>|学号|姓名|年龄|</code>（回车即可创建表格）</p></li><li><p>添加下一行：<code>ctrl+ 回车键</code> </p></li><li><p>调整表格：点击创建的表格，会有很多按钮，自己去尝试即可</p></li></ul><h1 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h1><ul><li><p>演示：<code>python</code>语言是非常简单的；<code>java</code>语言是很难学的！</p></li><li><p>快捷键：<strong>ctrl + shift `</strong> （<strong>`号</strong>在键盘左上角，和<strong>~号</strong>同键）</p></li><li><p>输入法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;行内代码&#96;</span><br></pre></td></tr></table></figure></li></ul><h1 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h1><ul><li><p>开启代码块功能：文件 – 偏好设置 – Markdown – 勾选显示行号等信息（注意重启）</p></li><li><p>演示：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'hellow python!'</span>)</span><br><span class="line">func()</span><br></pre></td></tr></table></figure></li><li><p>快捷键：<code>ctrl + shift + K</code>  </p></li><li><p>输入法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">​&#96;&#96;&#96;python 或者 ~~~Java（注意：创建代码块后，末端有个语言类型，可填写，三个连续的符号后面可以加任意内容，但是写入正确的语言，会有语法高亮显示）</span><br></pre></td></tr></table></figure></li></ul><h1 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h1><ul><li>演示：<ul><li><img src= "/img/loading.gif" data-src="https://i.loli.net/2020/07/25/PUyVSu7W5iJeqoL.jpg" alt="IuWi8QbHvzjlOPw.jpg"></li></ul></li><li>路径选择：文件 – 偏好设置 – 图像（修改对应的设置“百度”）</li><li>快捷键：<code>ctrl + shift + i</code>  </li><li>输入法：<code>![]()</code></li></ul><div class="note danger">            <p><strong>注意：若要添加网络图片，可以用其他编辑器打开，如：Notepad++等，输入<code>![]()</code> ，括号中填写图片的URL即可（本人常用写法）</strong></p>          </div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编辑器 </category>
+          
+          <category> 标记语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 个人博客 </tag>
+            
+            <tag> 编辑器 </tag>
+            
+            <tag> Markdown语言 </tag>
+            
+            <tag> Typora </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git的安装与使用</title>
       <link href="/posts/6536dfdf/"/>
       <url>/posts/6536dfdf/</url>
