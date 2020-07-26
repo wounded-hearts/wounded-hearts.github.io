@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>vim编辑器使用手册</title>
+      <link href="/posts/22e0b6f/"/>
+      <url>/posts/22e0b6f/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="vim编辑器"><a href="#vim编辑器" class="headerlink" title="vim编辑器"></a>vim编辑器</h1><ul><li>打开vim编辑器 / 用vim编辑器打开文件：<code>vim</code> / <code>vim 文件1 文件2 。。。</code>  </li><li>打开多个文件进行比较：<code>vim -d 文件1 文件2 。。。</code>（适用于版本比较）</li></ul><h1 id="vim的三种模式"><a href="#vim的三种模式" class="headerlink" title="vim的三种模式"></a>vim的三种模式</h1><ul><li>命令模式、编辑模式、末行模式</li></ul><h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><ol><li><code>ZZ</code>(大写) – 保存并退出</li><li>按键代表命令：<ul><li><code>i</code> 或a – 进入编辑模式</li><li><code>:</code> – 进入末行模式</li></ul></li><li><code>G</code> (大写) – 光标移动到末尾；<code>88G</code> – 光标移动到88行</li><li><code>gg</code> – 光标移动到首行</li><li><code>h、j、k、l</code> – 光标移动<code>左下上右</code>；<code>66h</code> – 光标向左移动66个字符</li><li>快捷组合键：<ul><li><code>Ctrl + Y</code> / <code>Ctrl + E</code> – 移动一行（上 / 下）</li><li><code>Ctrl + B</code> / <code>Ctrl + F</code> – 翻一页（下 / 上）</li></ul></li><li>数字<code>0</code> / <code>$</code> – 光标到行首 / 行末；<code>w</code>(小写) – 光标移动到下一个单词</li><li><code>dd</code> – 删除光标所在行；<code>88dd</code> – 从光标所在行向下删除88行</li><li><code>yy</code> – 复制光标所在行；<code>66yy</code> – 从光标所在行复制66行</li><li><code>p</code> – 粘贴；<code>8p</code> – 粘贴8遍</li><li><code>u</code> – 撤销；<code>Ctrl + R</code> – 恢复</li></ol><h1 id="编辑模式"><a href="#编辑模式" class="headerlink" title="编辑模式"></a>编辑模式</h1><ul><li><code>i</code> / a – 进入编辑模式</li><li><code>esc :wq!</code> – 退出编辑模式，进入<strong>末行模式</strong>（:），<strong>保存</strong>（w），<strong>退出</strong>（q），<strong>强制执行</strong>（!）</li></ul><h1 id="末行模式"><a href="#末行模式" class="headerlink" title="末行模式"></a>末行模式</h1><ol><li><code>:</code> – 在命令模式下输入，进入末行模式</li><li>:336 — 定位到指定行（336行）</li><li><code>set nu</code> – 显示行号；set nonu – 不显示行号</li><li><code>syntax on</code> – 显示高亮语法；syntax off – 不显示高亮语法</li><li><code>set ts=4</code> – 修改制表键的空格数</li><li><code>set ruler</code> – 显示光标所在的位置；set noruler – 不显示光标所在的位置</li><li>映射快捷键：<ul><li><code>map &lt;f2&gt; gg99999dd</code> – 在命令模式下，自定义快捷键：从第一行开始删除99999行</li><li><code>ionremap __main if __name__ == &#39;__main__&#39;</code> – 在编辑模式下，输入 <code>__main</code> 自动补替换后面内容</li></ul></li><li>多文件操作：<ul><li><code>ls</code> – 查看所有打开的文件(注意：ln创建的文件，不支持查看)</li><li><code>b 数字</code> – 指定显示那个文件</li><li><code>vs</code> – 垂直拆分窗口</li><li><code>sp</code> – 水平拆分窗口</li><li><code>Ctrl + W</code>(双击) – 切换窗口</li><li><code>qa</code> – 退出所有窗口</li></ul></li></ol><h1 id="更改vim的配置"><a href="#更改vim的配置" class="headerlink" title="更改vim的配置"></a>更改vim的配置</h1><ul><li><p>切换至用户主目录 – <code>cd ~</code> –新建隐藏文件<code>.vimrc</code> – 编辑如下配置（<strong>.vimrc</strong>文件中必须删除中文注释，否则会有异常）：</p></li><li><pre><code class="c#"><span class="keyword">set</span> nu <span class="meta"># 显示行号</span>syntax <span class="keyword">on</span>  <span class="meta"># 语法高亮开启</span><span class="keyword">set</span> ts=<span class="number">4</span>  <span class="meta"># 设置制表键为4个空格</span><span class="keyword">set</span> expandtab <span class="meta"># 将制表键自动转换为空格</span><span class="keyword">set</span> autoindent  <span class="meta"># 自动缩进</span><span class="keyword">set</span> ruler  <span class="meta"># 显示标尺（光标所在的位置）</span><span class="keyword">set</span> nohls  <span class="meta"># 设置搜索的结果不要用高亮</span>&lt;!--￼<span class="number">0</span>--&gt;</code></pre></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编辑器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编辑器 </tag>
+            
+            <tag> vim </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux系统使用手册</title>
       <link href="/posts/b37d76b1/"/>
       <url>/posts/b37d76b1/</url>
