@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Python3语言(三) | 乐天的博客</title><meta name="description" content="说明：详细介绍了字符串的内建函数"><meta name="keywords" content="Python3"><meta name="author" content="wounded-hearts"><meta name="copyright" content="wounded-hearts"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://github.com/wounded-hearts/posts/1ca1b1c8/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Python3语言(三)"><meta property="og:url" content="https://github.com/wounded-hearts/posts/1ca1b1c8/"><meta property="og:site_name" content="乐天的博客"><meta property="og:description" content="说明：详细介绍了字符串的内建函数"><meta property="og:image" content="https://i.loli.net/2020/07/29/Gx3QAslTM7NCim1.png"><meta property="article:published_time" content="2020-07-30T07:55:59.000Z"><meta property="article:modified_time" content="2020-07-30T07:56:41.477Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="next" title="Python3语言(二)" href="https://github.com/wounded-hearts/posts/625291e3/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"I,Love,You","fontSize":"25px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-07-30 15:56:41'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/dd.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">14</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#字符串增删改查"><span class="toc-number">1.</span> <span class="toc-text">字符串增删改查</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串的增加"><span class="toc-number">1.1.</span> <span class="toc-text">字符串的增加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串的删除"><span class="toc-number">1.2.</span> <span class="toc-text">字符串的删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串的修改"><span class="toc-number">1.3.</span> <span class="toc-text">字符串的修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串的查询"><span class="toc-number">1.4.</span> <span class="toc-text">字符串的查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字符串编码与解码"><span class="toc-number">2.</span> <span class="toc-text">字符串编码与解码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字母大小写转换"><span class="toc-number">3.</span> <span class="toc-text">字母大小写转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#判断开始和结尾"><span class="toc-number">4.</span> <span class="toc-text">判断开始和结尾</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#判断数字和字母"><span class="toc-number">5.</span> <span class="toc-text">判断数字和字母</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/07/29/Gx3QAslTM7NCim1.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">乐天的博客</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Python3语言(三)</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-07-30 15:55:59"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-07-30</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-07-30 15:56:41"><i class="fas fa-history fa-fw"></i> 更新于 2020-07-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/Python3%E8%AF%AD%E8%A8%80/">Python3语言</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">2.4k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 9 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><div class="note danger">
+            <p>注意：以下操作，仅限于字符串的内建函数</p>
+          </div>
+
+<h1 id="字符串增删改查"><a href="#字符串增删改查" class="headerlink" title="字符串增删改查"></a>字符串增删改查</h1><h2 id="字符串的增加"><a href="#字符串的增加" class="headerlink" title="字符串的增加"></a>字符串的增加</h2><ul>
+<li>内建函数：<code>str.join()</code></li>
+<li>作用：<ol>
+<li>在字符串内加入<strong>任意字符</strong>，作为<strong>分隔符</strong></li>
+<li>在<code>list</code>中可输入空值<code>&#39;&#39;</code>合并<code>list</code>为<code>str</code></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'abcd'</span></span><br><span class="line">result = <span class="string">'--'</span>.join(s)    <span class="comment">#对字符串的元素进行添加，并分隔</span></span><br><span class="line">print(<span class="string">'加入分隔符后的结果：'</span>,result)</span><br><span class="line"><span class="comment"># 对列表中的元素进行合并转换  list--&gt;str</span></span><br><span class="line">list0 = [<span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'m'</span>,<span class="string">'in'</span>]</span><br><span class="line">result = <span class="string">''</span>.join(list0)</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">print(<span class="string">'原始数据：'</span>,list0,type(list0))</span><br><span class="line">print(<span class="string">'join([arg])结果：'</span>,result,type(result))</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串的删除"><a href="#字符串的删除" class="headerlink" title="字符串的删除"></a>字符串的删除</h2><ul>
+<li><p>内建函数：<code>str.strip()</code>、<code>str.lstrip()</code>、<code>str.rstrip()</code></p>
+</li>
+<li><p>作用：</p>
+<ol>
+<li><p><code>strip()</code>：截取、删除<code>str</code><strong>左右两边</strong>的<strong>空格</strong>和<strong>指定字符</strong>，不能删除中间的字符</p>
+</li>
+<li><p><code>lstrip()</code>：只作用于左边</p>
+</li>
+<li><p><code>rstrip()</code>：只作用于右边</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strip()              中文翻译：除去、脱光、扒光</span></span><br><span class="line">s = <span class="string">'《--&gt;my--name is \'admin\'!--'</span>  <span class="comment"># \转义</span></span><br><span class="line">result = s.strip(<span class="string">'!《&gt;-'</span>)  <span class="comment"># srtip()调用</span></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">print(<span class="string">'原始数据：'</span>, s)</span><br><span class="line">print(<span class="string">'str.strip()后的结果：'</span>, result)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="字符串的修改"><a href="#字符串的修改" class="headerlink" title="字符串的修改"></a>字符串的修改</h2><ol>
+<li><p>方式一：</p>
+<ul>
+<li><p>内建函数：<code>str.replace()</code></p>
+</li>
+<li><p>格式：<code>str.replace(old,new,[max])</code>   [max]：表示最大值，直接输入int型（数字），不需要加[]</p>
+</li>
+<li><p>作用：将字符串中的指定元素，替换为新的元素，并指定最大替换数量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'find rfind lfind index rindex lindex replace'</span></span><br><span class="line">print(<span class="string">'s原始长度：'</span>, len(s), <span class="string">'\ns原始数据：'</span>, s)</span><br><span class="line"><span class="comment"># 全部替换</span></span><br><span class="line">result = s.replace(<span class="string">' '</span>, <span class="string">'-'</span>)  <span class="comment"># 不指定替换个数，默认全部替换</span></span><br><span class="line">print(<span class="string">'全部替换后的结果：'</span>, result)</span><br><span class="line"><span class="comment"># 部分替换</span></span><br><span class="line">result = s.replace(<span class="string">' '</span>, <span class="string">'#'</span>, <span class="number">3</span>)  <span class="comment"># 指定最大替换数量为3，即前三个字符被替换（从左到右）</span></span><br><span class="line">print(<span class="string">'部分替换后的结果：'</span>, result)</span><br><span class="line"><span class="comment"># 截取后再替换</span></span><br><span class="line">print(<span class="string">'截取原始数据后再替换：'</span>, s[<span class="number">10</span>:<span class="number">-10</span>].replace(<span class="string">' '</span>, <span class="string">'@'</span>))  <span class="comment"># 截取后再替换并输出</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>练习：删除指定字符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">s1 = input(<span class="string">'请输入内容：'</span>)</span><br><span class="line">s2 = input(<span class="string">'请输入要删除的字符（无需分割符，连续写即可）：'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法一（推荐）：</span></span><br><span class="line"><span class="comment"># 思路：遍历s2的每个元素，一一对应判断，将s1和s2中共有的元素替换为‘’空值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s2:</span><br><span class="line">    <span class="comment"># print(i,end='')</span></span><br><span class="line">    s1 = s1.replace(i, <span class="string">''</span>)</span><br><span class="line"><span class="comment"># print('')</span></span><br><span class="line">print(s1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法二：</span></span><br><span class="line"><span class="comment"># 思路：新建s3，遍历s1，判断s1中的元素在s2中是否存在，若存在不输出，不存在依次添加到s3，最后将s3赋值给s1(或者直接输出s3，无需赋值)</span></span><br><span class="line">s3 = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s1:</span><br><span class="line">    <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> s2:</span><br><span class="line">        s3 += i</span><br><span class="line"><span class="comment"># s1 = s3</span></span><br><span class="line"><span class="comment"># print(s1)</span></span><br><span class="line">print(s3)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>方式二：</p>
+<ul>
+<li><p>内建函数：<code>str.split()</code></p>
+</li>
+<li><p>格式：<code>str.split(value)</code></p>
+</li>
+<li><p>作用：指定字符分隔str，并将分隔后的字符串放入list中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># split()      str--&gt;list</span></span><br><span class="line">s = <span class="string">'my name  is admin '</span>  <span class="comment"># 字符串中间有两个空格、末尾有一个空格</span></span><br><span class="line">result = s.split(<span class="string">' '</span>)</span><br><span class="line">print(<span class="string">'原始数据：'</span>, s)</span><br><span class="line">print(<span class="string">'split()结果：'</span>, result)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="字符串的查询"><a href="#字符串的查询" class="headerlink" title="字符串的查询"></a>字符串的查询</h2><ol>
+<li><p>bool查找</p>
+<ul>
+<li><p>关键字：<code>in</code></p>
+</li>
+<li><p>作用：判断指定内容是否在<code>str</code>中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'she is a very beautiful girl end'</span></span><br><span class="line">print(<span class="string">'字符串总长（起始位置：0）：'</span>, len(s))</span><br><span class="line">print(<span class="string">'in关键字判断结果：'</span>, <span class="string">'girl'</span> <span class="keyword">in</span> s)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>内容查找</p>
+<ul>
+<li><p>内建函数：<code>str.find()</code>、<code>str.lfind()</code>、<code>str.rfind()</code></p>
+</li>
+<li><p>格式：<code>str.find(&#39;str&#39;, start, end)</code></p>
+</li>
+<li><p>作用：查找<strong>指定内容</strong>，并指定<strong>开始</strong>和<strong>结束</strong>的位置，若<strong>存在</strong>，则返回出现指定内容的<strong>下标</strong>；若<strong>不存在</strong>，则返回<code>-1</code>；不指定位置，默认值查找<strong>第一次</strong>出现的位置（默认从左到右）；<code>rfind()</code>表示从右开始查找</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'she is a very beautiful girl end'</span></span><br><span class="line">result = s.find(<span class="string">'e'</span>)</span><br><span class="line">print(<span class="string">'原始数据：'</span>, s)</span><br><span class="line">print(<span class="string">'find()查找后的结果：'</span>, result)</span><br><span class="line"><span class="comment"># find('str',start,end)指定开始结束位置查找</span></span><br><span class="line">result0 = s.find(<span class="string">'e'</span>, <span class="number">15</span>, <span class="number">29</span>)  <span class="comment"># 起始位--&gt;结束位  [,)，左闭右开</span></span><br><span class="line">print(<span class="string">'find(\'e\',15,29)指定开始结束位置查找结果：'</span>, result0)</span><br><span class="line">print(<span class="string">'find(\'e\',result+1)指定开始位置查找结果：'</span>, s.find(<span class="string">'e'</span>, result + <span class="number">1</span>)) <span class="comment"># 如果不写end位置，默认到字符串结束位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 截取网址末尾的文件名</span></span><br><span class="line">s = <span class="string">'www.dgtmro.com/uploads/source/42/img/test.jpg'</span></span><br><span class="line">print(<span class="string">'字符串总长：'</span>, len(s))</span><br><span class="line">result1 = s.rfind(<span class="string">'/'</span>)</span><br><span class="line">print(<span class="string">'字符串中最后出现"/"的地址：'</span>, result1)</span><br><span class="line">print(s[result1 + <span class="number">1</span>:])  <span class="comment"># 默认截取是[,)区间，所以向前一位截取</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>下标查找</p>
+<ul>
+<li><p>内建函数：<code>str.index()</code>、<code>str.lindex()</code>、<code>str.rindex()</code></p>
+</li>
+<li><p>格式：<code>str.index(&#39;str&#39;, start, end)</code></p>
+</li>
+<li><p>作用：查找<strong>指定内容</strong>，并指定<strong>开始</strong>和<strong>结束</strong>的位置，若<strong>存在</strong>，则返回出现指定内容的<strong>下标</strong>；若<strong>不存在</strong>，则<strong>报错</strong>ValueError；不指定位置，默认值查找<strong>第一次</strong>出现的位置（默认从左到右）；<code>rindex()</code>表示从右开始查找</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'www.dgtmro.com/uploads/source/a/42/img/test.jpg'</span></span><br><span class="line">print(<span class="string">'index()查找结果：'</span>, s.index(<span class="string">'a'</span>, <span class="number">20</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>元素次数统计</p>
+<ul>
+<li><p>内建函数：<code>count()</code></p>
+</li>
+<li><p>格式：<code>str.count(&#39;str&#39;, begin, end)</code></p>
+</li>
+<li><p>作用：查找<strong>指定内容</strong>，并指定<strong>开始</strong>和<strong>结束</strong>的位置，最后返回出现指定内容的<strong>次数</strong>；若不指定开始和结束的位置，默认从头到尾</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'my name is admin'</span></span><br><span class="line">result = s.count(<span class="string">'m'</span>, <span class="number">0</span>, len(s))  <span class="comment"># count('str',begin,end)表示：确认查找的str，开头至结束，可不写，默认</span></span><br><span class="line">print(<span class="string">'原始数据：'</span>, s)</span><br><span class="line">print(<span class="string">'count(\'m\',start,end)输出结果：'</span>, result)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="字符串编码与解码"><a href="#字符串编码与解码" class="headerlink" title="字符串编码与解码"></a>字符串编码与解码</h1><ol>
+<li><p>编码</p>
+<ul>
+<li>内建函数：<code>encode()</code></li>
+<li>格式：<code>str.encode(&#39;utf-8&#39;)</code></li>
+</ul>
+</li>
+<li><p>解码</p>
+<ul>
+<li>内建函数：<code>decode()</code></li>
+<li>格式：<code>str.decode(&#39;utf-8&#39;)</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gbk：中文	gb2312：简体中文</span></span><br><span class="line">msg = <span class="string">'这是中文！'</span></span><br><span class="line">print(<span class="string">'原始数据：'</span>, msg)</span><br><span class="line"><span class="comment"># 编码encode</span></span><br><span class="line">result = msg.encode(<span class="string">'utf-8'</span>)  <span class="comment"># 将中文格式的内容进行编码问题</span></span><br><span class="line">print(<span class="string">'utf-8编码后：'</span>, result)</span><br><span class="line"><span class="comment"># 解码decode    网络应用（中文一般会涉及编码）</span></span><br><span class="line">result = result.decode(<span class="string">'utf-8'</span>)  <span class="comment"># 对编码后的内容进行解码</span></span><br><span class="line">print(<span class="string">'utf-8解码后：'</span>, result)</span><br><span class="line"><span class="comment"># 输出结果：b'\xe8\xbf\x99\xe6\x98\xaf\xe4\xb8\xad\xe6\x96\x87\xef\xbc\x81'</span></span><br><span class="line"><span class="comment"># b表示binary二进制，系统会自动转换为01</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="字母大小写转换"><a href="#字母大小写转换" class="headerlink" title="字母大小写转换"></a>字母大小写转换</h1><ul>
+<li><p>内建函数：</p>
+<ol>
+<li><code>upper()</code>全部字母大写     <code>lower()</code>全部字母小写     <code>title()</code>每个单词首字母大写    <code>capitalize()</code>首字母大写</li>
+<li><code>isupper()</code>   <code>islower()</code>   <code>istitle()</code> 检查字符串中的内容是否为相应的格式，返回<code>bool</code>值</li>
+</ol>
+</li>
+<li><p>格式：<code>str.upper()</code>、<code>str.islower()</code> （不需要加参数）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'my name is Admin'</span></span><br><span class="line">result = s.title()</span><br><span class="line">print(<span class="string">'大小写转换后的结果：'</span>, result)</span><br><span class="line"></span><br><span class="line">message = <span class="string">'she is a very beautiful girl'</span></span><br><span class="line">msg = message.capitalize()      <span class="comment"># 将字符串中的第一个字符转换成大写的标识形式</span></span><br><span class="line">print(msg)</span><br><span class="line"></span><br><span class="line"><span class="comment"># istitle()返回bool值True、False，是判断字符串中每个单词的首字母是否大写的</span></span><br><span class="line">msg = message.istitle()</span><br><span class="line">print(msg)</span><br><span class="line"></span><br><span class="line">msg = message.title()      <span class="comment"># 将字符串中的每个单词的首字母转换成大写的标识形式</span></span><br><span class="line">print(msg)</span><br><span class="line"></span><br><span class="line">result = msg.istitle()</span><br><span class="line">print(result)</span><br><span class="line"></span><br><span class="line">result = message.upper()      <span class="comment"># 将字符串中的所有字符转换成大写的标识形式</span></span><br><span class="line">print(result)</span><br><span class="line"></span><br><span class="line">msg = message.lower()      <span class="comment"># 将字符串中的所有字符转换成小写的标识形式</span></span><br><span class="line">print(msg)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>循环转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">'Ak99UtG55GuytG66G'</span></span><br><span class="line"><span class="comment"># 思路：    定义空str（用来依次放入str中的元素）--&gt;for...in...遍历str--&gt;判断元素（三种类型：大写，小写，没有大小写：例如数字）</span></span><br><span class="line"><span class="comment">#           --&gt;判断后转换并赋值--&gt;输出最后的结果</span></span><br><span class="line">ss = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    <span class="keyword">if</span> i.isupper():</span><br><span class="line">        ss += i.lower()</span><br><span class="line">    <span class="keyword">elif</span> i.islower():</span><br><span class="line">        ss += i.upper()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        ss += i</span><br><span class="line">print(ss)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>练习：</p>
+<ol>
+<li>单词每个字母都是小写字母</li>
+<li>单词没有连续相等的字母</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">words</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 输入内容</span></span><br><span class="line">    word = input(<span class="string">'请输入一个单词：'</span>)</span><br><span class="line">    <span class="comment"># 将单词每个字母进行循环，判断是不是大写[A-Z]</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(word)):</span><br><span class="line">        <span class="comment"># if word[i] &gt;= 'A' and word[i] &lt;= 'Z':</span></span><br><span class="line">        <span class="keyword">if</span> word[i].isupper():</span><br><span class="line">            print(<span class="string">'字母有大写！不喜欢这个单词！'</span>)</span><br><span class="line">            <span class="comment"># 判断结束直接终止循环，跳出函数</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># 对单词的相邻字母是否一样进行判断</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(word)):</span><br><span class="line">        <span class="comment"># 系统是从0开始，len()是从1开始，所有-1</span></span><br><span class="line">        <span class="keyword">if</span> i &lt; len(word) - <span class="number">1</span> <span class="keyword">and</span> word[i] == word[i + <span class="number">1</span>]:</span><br><span class="line">            print(<span class="string">'这个单词是叠词！不喜欢！'</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'我喜欢这个单词！'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">words()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="判断开始和结尾"><a href="#判断开始和结尾" class="headerlink" title="判断开始和结尾"></a>判断开始和结尾</h1><ol>
+<li><p>开始：</p>
+<ul>
+<li><p>内建函数：<code>startswith()</code></p>
+</li>
+<li><p>格式：<code>str.startswith(&#39;str&#39;, start, end)</code>，返回<code>bool</code>值（True / False）</p>
+</li>
+<li><p>若不指定开始位置和结束位置，默认<strong>从左到右</strong>开始匹配；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s0 = <span class="string">'hellow！Hi！'</span></span><br><span class="line">result = s0.startswith(<span class="string">'H'</span>, <span class="number">7</span>)</span><br><span class="line">print(<span class="string">'startswith()结果：'</span>, result)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>结尾</p>
+<ul>
+<li><p>内建函数：<code>endswith()</code></p>
+</li>
+<li><p>格式：<code>str.endswith(&#39;str&#39;, start, end)</code></p>
+</li>
+<li><p>若不指定开始位置和结束位置，默认<strong>从右到左</strong>开始匹配；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file_name = <span class="string">'test.jpg'</span></span><br><span class="line">result0 = file_name.endswith(<span class="string">'jpg'</span>)</span><br><span class="line">print(<span class="string">'endswith()结果：'</span>, result0)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应用（文件上传）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 应用：文件上传    只能上传的图片类型（jpg,png,gif,bmp）</span></span><br><span class="line">print(<span class="string">r'C:\\uploads\source\42\img\test.jpg'</span>)</span><br><span class="line">user_input = input(<span class="string">'请复制上面的路径：'</span>)</span><br><span class="line">print(<span class="string">'你输入的路径长度为：'</span>, len(user_input))</span><br><span class="line"></span><br><span class="line">s = user_input.rfind(<span class="string">'\\'</span>)</span><br><span class="line">print(<span class="string">'文件开始的开始位置：'</span>, s + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">result = user_input[s + <span class="number">1</span>:]  <span class="comment"># 获取文件名全称</span></span><br><span class="line">print(<span class="string">'获取到的文件：'</span>, result)</span><br><span class="line"><span class="keyword">if</span> result.endswith(<span class="string">'jpg'</span>) <span class="keyword">or</span> result.endswith(<span class="string">'png'</span>):</span><br><span class="line">    print(<span class="string">'属于图片类型，可以上传！'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'禁止上传！只能上传图片类型！'</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="判断数字和字母"><a href="#判断数字和字母" class="headerlink" title="判断数字和字母"></a>判断数字和字母</h1><ol>
+<li><p>作用：判断str中的所有元素，属于数字还是字母</p>
+</li>
+<li><p>内建函数：<code>isdigit()</code>是否为数字、<code>isalpha()</code> 是否为字母</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># isalpha()</span></span><br><span class="line">s = <span class="string">'abc8'</span></span><br><span class="line">result = s.isalpha()</span><br><span class="line">print(<span class="string">'s.isaplha()是否全是字符类型：'</span>, result)</span><br><span class="line"><span class="comment"># isdigit()</span></span><br><span class="line">s01 = <span class="string">'888'</span>  <span class="comment"># True</span></span><br><span class="line">s02 = <span class="number">888</span>  <span class="comment"># 报错，非字符串类型</span></span><br><span class="line">s03 = <span class="string">'3.14'</span>  <span class="comment"># False</span></span><br><span class="line">result = s01.isdigit()</span><br><span class="line">print(<span class="string">'s.isdigit()是否全是数字类型：'</span>, result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>练习</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 三次循环累加（数字累加游戏）</span></span><br><span class="line">print(<span class="string">'''</span></span><br><span class="line"><span class="string">********************</span></span><br><span class="line"><span class="string">    数字累加游戏</span></span><br><span class="line"><span class="string">********************</span></span><br><span class="line"><span class="string">'''</span>)</span><br><span class="line">i = <span class="number">1</span></span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i &lt;= <span class="number">3</span>:</span><br><span class="line">    print(<span class="string">'请输入第&#123;&#125;个'</span>.format(i), end=<span class="string">''</span>)</span><br><span class="line">    user_input = input(<span class="string">'数：'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> user_input.isdigit():  <span class="comment"># 引用isdigit()来进行判断</span></span><br><span class="line">        a = int(user_input) <span class="comment"># 转换为int()类型</span></span><br><span class="line">        sum += a <span class="comment"># sum = sum + a</span></span><br><span class="line">        print(<span class="string">'前&#123;&#125;个数的和为：'</span>.format(i), sum)</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'第&#123;&#125;个输入的内容不正确，请重新输入！'</span>.format(i))</span><br><span class="line">print(<span class="string">'总和为：'</span>, sum)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">wounded-hearts</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://github.com/wounded-hearts/posts/1ca1b1c8/">https://github.com/wounded-hearts/posts/1ca1b1c8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://github.com/wounded-hearts" target="_blank">乐天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python3/">Python3</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/07/29/Gx3QAslTM7NCim1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><button class="reward-button" type="button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://imgkr.cn-bj.ufileos.com/8c017e42-d644-44f9-816e-72092b4560ee.jpg" alt="微信" onclick="window.open('https://imgkr.cn-bj.ufileos.com/8c017e42-d644-44f9-816e-72092b4560ee.jpg')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://imgkr.cn-bj.ufileos.com/106058c6-16b3-4b00-b6b3-e65600d6f360.jpg" alt="支付宝" onclick="window.open('https://imgkr.cn-bj.ufileos.com/106058c6-16b3-4b00-b6b3-e65600d6f360.jpg')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/625291e3/"><img class="next-cover" data-src="https://i.loli.net/2020/07/29/Gx3QAslTM7NCim1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python3语言(二)</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/625291e3/" title="Python3语言(二)"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/07/29/Gx3QAslTM7NCim1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-29</div><div class="relatedPosts_title">Python3语言(二)</div></div></a></div><div class="relatedPosts_item"><a href="/posts/cd630a81/" title="Python3语言(一)"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/07/29/Gx3QAslTM7NCim1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-29</div><div class="relatedPosts_title">Python3语言(一)</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div class="comments-items-1" data-name="Valine"><div class="vcomment" id="vcomment"></div><script>function loadvaline () {  
+  var requestSetting = function (from,set) {
+    var from = from
+    var setting = set.split(',').filter(function(item){
+    return from.indexOf(item) > -1
+    });
+    setting = setting.length == 0 ? from :setting;
+    return setting
+  }
+
+  var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+  var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+  function initValine () {
+    window.valine = new Valine({
+      el:'#vcomment',
+      appId: '4oIr1DcSynB0TTabT7wc489z-gzGzoHsz',
+      appKey: 'oUN4TXcidEOk3PjLVQaP6OJW',
+      placeholder: '说些什么吧',
+      avatar: 'monsterid',
+      meta: guestInfo,
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: 'https://4oir1dcs.lc-cn-n1-shared.com',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      requiredFields: requiredFields
+    });
+  }
+  loadScript('https://cdn.bootcdn.net/ajax/libs/valine/1.4.14/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || false) {
+  window.addEventListener('load', loadvaline)
+}
+else {
+  function loadOtherComment () {
+    loadvaline()
+  }
+}</script></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By wounded-hearts</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hellow! Welcome to my <a href="https://wounded-hearts.github.io" target="_blank">Blog</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/third-party/ClickShowText.js"></script><script src="/js/search/local-search.js"></script></body></html>
