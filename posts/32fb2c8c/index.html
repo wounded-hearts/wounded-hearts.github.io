@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Google必备插件 | 乐天的博客</title><meta name="description" content="说明：添加Google插件，屏蔽广告等一些不感兴趣的的内容，提高网络搜索的效率，净化网络环境"><meta name="keywords" content="工具,插件,Google"><meta name="author" content="wounded-hearts"><meta name="copyright" content="wounded-hearts"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wounded-hearts.github.io/posts/32fb2c8c/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Google必备插件"><meta property="og:url" content="https://wounded-hearts.github.io/posts/32fb2c8c/"><meta property="og:site_name" content="乐天的博客"><meta property="og:description" content="说明：添加Google插件，屏蔽广告等一些不感兴趣的的内容，提高网络搜索的效率，净化网络环境"><meta property="og:image" content="https://i.loli.net/2020/09/02/l7h8RxwYHDiJytc.jpg"><meta property="article:published_time" content="2020-09-02T02:55:59.000Z"><meta property="article:modified_time" content="2020-09-02T02:44:26.628Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="next" title="Python3爬虫(二)" href="https://wounded-hearts.github.io/posts/282f32dc/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"❤变强❤,❤变强❤,❤我要变强❤,❤努力❤,❤努力❤,❤我要努力❤,❤学习❤,❤学习❤,❤我要学习❤,❤奋斗❤,❤奋斗❤,❤我要奋斗❤,❤加油❤,❤加油❤,❤我要加油❤","fontSize":"20px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-09-02 10:44:26'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/dd.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">31</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">20</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#广告屏蔽神器"><span class="toc-number">1.</span> <span class="toc-text">广告屏蔽神器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AdGuard"><span class="toc-number">1.1.</span> <span class="toc-text">AdGuard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adblock-Plus"><span class="toc-number">1.2.</span> <span class="toc-text">Adblock Plus</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#屏蔽百度全家桶"><span class="toc-number">2.</span> <span class="toc-text">屏蔽百度全家桶</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#百度广告屏蔽"><span class="toc-number">2.1.</span> <span class="toc-text">百度广告屏蔽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#屏蔽百度推广"><span class="toc-number">2.2.</span> <span class="toc-text">屏蔽百度推广</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#百度药丸"><span class="toc-number">2.3.</span> <span class="toc-text">百度药丸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绿色搜索"><span class="toc-number">2.4.</span> <span class="toc-text">绿色搜索</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#爬虫神器"><span class="toc-number">3.</span> <span class="toc-text">爬虫神器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件格式化插件"><span class="toc-number">4.</span> <span class="toc-text">文件格式化插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#渗透测试必备插件"><span class="toc-number">5.</span> <span class="toc-text">渗透测试必备插件</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/09/02/l7h8RxwYHDiJytc.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">乐天的博客</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Google必备插件</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-09-02 10:55:59"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-09-02</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-09-02 10:44:26"><i class="fas fa-history fa-fw"></i> 更新于 2020-09-02</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">434</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 1 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="广告屏蔽神器"><a href="#广告屏蔽神器" class="headerlink" title="广告屏蔽神器"></a>广告屏蔽神器</h1><ul>
+<li>作用：双管齐下，可以拦截所有浏览器上的广告，包括各种<strong>视频广告</strong>，弹窗内容也是可以正常拦截滴</li>
+</ul>
+<h2 id="AdGuard"><a href="#AdGuard" class="headerlink" title="AdGuard"></a>AdGuard</h2><ol>
+<li>插件名称：<code>AdGuard 广告拦截器</code></li>
+<li>国内下载地址：<a href="https://www.extfans.com/productivity/bgnkhhnnamicmpeenaelnjfhikgbkllg/" target="_blank" rel="noopener">点击下载</a></li>
+</ol>
+<h2 id="Adblock-Plus"><a href="#Adblock-Plus" class="headerlink" title="Adblock Plus"></a>Adblock Plus</h2><ol>
+<li>插件名称：<code>Adblock Plus - 免费广告拦截插件</code></li>
+<li>国内下载地址：<a href="https://www.extfans.com/productivity/cfhdojbkjhnklbpkdaibdccddilifddb/" target="_blank" rel="noopener">点击下载</a></li>
+</ol>
+<h1 id="屏蔽百度全家桶"><a href="#屏蔽百度全家桶" class="headerlink" title="屏蔽百度全家桶"></a>屏蔽百度全家桶</h1><h2 id="百度广告屏蔽"><a href="#百度广告屏蔽" class="headerlink" title="百度广告屏蔽"></a>百度广告屏蔽</h2><ol>
+<li>作用：可以屏蔽百度线上产品页面广告(搜索、新闻、贴吧、知道、音乐、图片、视频、文库等)</li>
+<li>插件名称：<code>百度广告屏蔽</code></li>
+<li>国内下载地址：<a href="https://www.extfans.com/search-tools/bdkobfnbgkbemcfgopfollaikdlknlkm/" target="_blank" rel="noopener">点击下载</a></li>
+</ol>
+<h2 id="屏蔽百度推广"><a href="#屏蔽百度推广" class="headerlink" title="屏蔽百度推广"></a>屏蔽百度推广</h2><ol>
+<li>作用：百度搜索时，自动屏蔽搜索结果中的商业推广链接，让你直接找到你想要的结果，还你一个清爽的百度</li>
+<li>插件名称：<code>屏蔽百度推广</code></li>
+<li>国内下载地址：<a href="https://www.extfans.com/chrome-app/igglgnndooafiikkegchgonogfgggenk/" target="_blank" rel="noopener">点击下载</a></li>
+</ol>
+<h2 id="百度药丸"><a href="#百度药丸" class="headerlink" title="百度药丸"></a>百度药丸</h2><ol>
+<li>作用：该插件不仅可以屏蔽百度广告推广，还能阻止百度追踪；专治百度莆田系、百度黄金眼、百度推广</li>
+<li>插件名称：<code>百度药丸 Baidu Capsule</code></li>
+<li>国内下载地址：<a href="https://www.extfans.com/search-tools/ngiclcoldiplnjcafhjkacjcmdidcmjp/" target="_blank" rel="noopener">点击下载</a></li>
+</ol>
+<h2 id="绿色搜索"><a href="#绿色搜索" class="headerlink" title="绿色搜索"></a>绿色搜索</h2><ol>
+<li>作用：屏蔽百度搜索结果列表中的广告信息, 将移除或者弱化显示</li>
+<li>插件名称：<code>绿色搜索</code></li>
+<li>国内下载地址：<a href="https://www.extfans.com/search-tools/aeajloomjeoncelkceelhhpkgbcgafek/" target="_blank" rel="noopener">点击下载</a></li>
+</ol>
+<h1 id="爬虫神器"><a href="#爬虫神器" class="headerlink" title="爬虫神器"></a>爬虫神器</h1><ol>
+<li>作用：此插件能够爬去网站中显示的数据</li>
+<li>插件名称：<code>web scraper</code></li>
+</ol>
+<h1 id="文件格式化插件"><a href="#文件格式化插件" class="headerlink" title="文件格式化插件"></a>文件格式化插件</h1><ol>
+<li>格式化js文件：<code>code beautifier</code></li>
+<li>格式化json文件：<code>yformater</code></li>
+</ol>
+<h1 id="渗透测试必备插件"><a href="#渗透测试必备插件" class="headerlink" title="渗透测试必备插件"></a>渗透测试必备插件</h1><ol>
+<li>网站技术分析工具：<code>wappalyzer</code></li>
+<li>查看IP和端口等信息：<code>shodan</code></li>
+<li>查看网站IP及其他数据：<code>ip address and domain information</code></li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">wounded-hearts</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wounded-hearts.github.io/posts/32fb2c8c/">https://wounded-hearts.github.io/posts/32fb2c8c/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wounded-hearts.github.io" target="_blank">乐天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a><a class="post-meta__tags" href="/tags/%E6%8F%92%E4%BB%B6/">插件</a><a class="post-meta__tags" href="/tags/Google/">Google</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/09/02/l7h8RxwYHDiJytc.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><button class="reward-button" type="button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png" alt="微信" onclick="window.open('https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png" alt="支付宝" onclick="window.open('https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/282f32dc/"><img class="next-cover" data-src="https://i.loli.net/2020/08/21/gMKmJ82BtfWj3X5.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python3爬虫(二)</div></div></a></div></nav><hr><div id="post-comment"><div class="comment-head"><div class="comment-headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div class="comments-items-1" data-name="Valine"><div class="vcomment" id="vcomment"></div><script>function loadvaline () {  
+  var requestSetting = function (from,set) {
+    var from = from
+    var setting = set.split(',').filter(function(item){
+    return from.indexOf(item) > -1
+    });
+    setting = setting.length == 0 ? from :setting;
+    return setting
+  }
+
+  var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+  var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+  function initValine () {
+    window.valine = new Valine({
+      el:'#vcomment',
+      appId: '4oIr1DcSynB0TTabT7wc489z-gzGzoHsz',
+      appKey: 'oUN4TXcidEOk3PjLVQaP6OJW',
+      placeholder: '说些什么吧',
+      avatar: 'monsterid',
+      meta: guestInfo,
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: 'https://4oir1dcs.lc-cn-n1-shared.com',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      requiredFields: requiredFields
+    });
+  }
+  loadScript('https://cdn.bootcdn.net/ajax/libs/valine/1.4.14/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || false) {
+  window.addEventListener('load', loadvaline)
+}
+else {
+  function loadOtherComment () {
+    loadvaline()
+  }
+}</script></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By wounded-hearts</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hellow! Welcome to my <a href="https://wounded-hearts.github.io" target="_blank">Blog</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/third-party/ClickShowText.js"></script><script src="/js/search/local-search.js"></script></body></html>
