@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Windows远程连接</title>
+      <link href="/posts/ff7043b8/"/>
+      <url>/posts/ff7043b8/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="一、远程管理类型"><a href="#一、远程管理类型" class="headerlink" title="一、远程管理类型"></a>一、远程管理类型</h1><ul><li>Windows远程管理有两种类型：<ol><li>远程桌面（图形化界面）</li><li>Telnet（命令行）</li></ol></li></ul><h1 id="二、远程桌面连接"><a href="#二、远程桌面连接" class="headerlink" title="二、远程桌面连接"></a>二、远程桌面连接</h1><ol><li><p>前提条件：</p><ul><li>客户机和服务机可以互通（关闭防火墙、IP在同一段）</li><li>服务器必须开启，允许被远程控制（我的电脑右键属性 &gt;&gt; 远程设 &gt;&gt; 勾选远程桌面 &gt;&gt; 应用 &gt;&gt; 确定）</li></ul></li><li><p>图示：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930172827.png" alt=""></p></li><li><p>winXP配置（远程连接端）</p><ul><li>网络适配器（虚拟机）：NAT模式</li><li>IP：192.168.25.136</li><li>防火墙：开启</li><li>远程控制：关闭（默认）</li></ul></li><li><p>win2003配置（被远程连接端）</p><ul><li>网络适配器（虚拟机）：NAT模式</li><li>IP：192.168.25.135</li><li>防火墙：关闭</li><li>远程控制：开启</li></ul></li><li><p>远程连接</p><ul><li><p>测试是否可以ping通服务器（win2003）：<code>ping -n 6 192.168.25.135</code></p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930172852.png" alt=""></p></li><li><p>打开远程连接程序：<code>win + R</code> &gt;&gt; <code>mstsc.exe</code> （.exe可省略）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930173338.png" alt=""></p></li><li><p>输入超级管理员账号密码登陆：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930173816.png" alt=""></p></li></ul></li><li><p>注意事项：</p><ul><li><p>超级管理员（administrator）拥有被远程登陆的权限，但是普通用户（wlet）并没有，如下：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930174343.png" alt=""></p></li><li><p>赋予普通用户，被远程登陆权限：<code>net localgroup &quot;Remote Desktop Users&quot; wlet /add</code> （注意双引号，也可在<code>Remote Desktop Users属性</code>中点击添加）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930175115.png" alt=""></p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930175544.png" alt=""></p></li></ul></li></ol><h1 id="三、Telnet服务"><a href="#三、Telnet服务" class="headerlink" title="三、Telnet服务"></a>三、Telnet服务</h1><ol><li><p>开启Telnet服务（默认关闭）：<code>win + R</code> &gt;&gt; <code>services.msc</code> （注意：启动Telnet服务）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930180002.png" alt=""></p></li><li><p>将普通用户（wlet）添加到Telnet组：<code>net localgroup &quot;TelnetClients&quot; wlet /add</code> （administrator可不用添加）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930180613.png" alt=""></p></li><li><p>远程连接：<code>telnet 192.168.25.135</code> （需要输入账户密码）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930182017.png" alt=""></p></li><li><p>注意事项：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/041%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/20200930181743.png" alt=""></p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 远程连接 </tag>
+            
+            <tag> Telnet </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Windows用户和组管理</title>
       <link href="/posts/875a0d45/"/>
       <url>/posts/875a0d45/</url>
