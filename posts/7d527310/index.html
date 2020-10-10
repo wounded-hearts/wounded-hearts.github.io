@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NTFS安全权限 | 乐天的博客</title><meta name="description" content="说明：通过设置NTFS权限，实现不同的用户访问不同对象（文件&#x2F;文件夹）的权限"><meta name="keywords" content="NTFS"><meta name="author" content="wounded-hearts"><meta name="copyright" content="wounded-hearts"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wounded-hearts.github.io/posts/7d527310/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="NTFS安全权限"><meta property="og:url" content="https://wounded-hearts.github.io/posts/7d527310/"><meta property="og:site_name" content="乐天的博客"><meta property="og:description" content="说明：通过设置NTFS权限，实现不同的用户访问不同对象（文件&#x2F;文件夹）的权限"><meta property="og:image" content="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20201010171131.png"><meta property="article:published_time" content="2020-10-10T09:14:21.460Z"><meta property="article:modified_time" content="2020-10-10T09:14:43.053Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="next" title="破解win7系统密码" href="https://wounded-hearts.github.io/posts/18641619/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"❤变强❤,❤变强❤,❤我要变强❤,❤努力❤,❤努力❤,❤我要努力❤,❤学习❤,❤学习❤,❤我要学习❤,❤奋斗❤,❤奋斗❤,❤我要奋斗❤,❤加油❤,❤加油❤,❤我要加油❤","fontSize":"20px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-10-10 17:14:43'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/dd.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">43</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">38</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、NTFS权限概述"><span class="toc-number">1.</span> <span class="toc-text">一、NTFS权限概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、文件系统概述"><span class="toc-number">2.</span> <span class="toc-text">二、文件系统概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、NTFS文件系统的特点"><span class="toc-number">3.</span> <span class="toc-text">三、NTFS文件系统的特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、修改NTFS权限"><span class="toc-number">4.</span> <span class="toc-text">四、修改NTFS权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件权限"><span class="toc-number">4.1.</span> <span class="toc-text">文件权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件夹权限"><span class="toc-number">4.2.</span> <span class="toc-text">文件夹权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取消权限继承"><span class="toc-number">4.3.</span> <span class="toc-text">取消权限继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹权限"><span class="toc-number">4.4.</span> <span class="toc-text">文件及文件夹权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、权限累加"><span class="toc-number">5.</span> <span class="toc-text">五、权限累加</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、系统最大权限"><span class="toc-number">6.</span> <span class="toc-text">六、系统最大权限</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、强制继承"><span class="toc-number">7.</span> <span class="toc-text">七、强制继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、文件移动和复制对权限的影响"><span class="toc-number">8.</span> <span class="toc-text">八、文件移动和复制对权限的影响</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20201010171131.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">乐天的博客</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">NTFS安全权限</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-10-10 17:14:21"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-10-10</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-10-10 17:14:43"><i class="fas fa-history fa-fw"></i> 更新于 2020-10-10</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 4 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="一、NTFS权限概述"><a href="#一、NTFS权限概述" class="headerlink" title="一、NTFS权限概述"></a>一、NTFS权限概述</h1><ol>
+<li><p>通过设置NTFS权限，实现不同的用户访问不同对象（文件/文件夹）的权限。</p>
+</li>
+<li><p>分配了正确的访问权限后，用户才能访问资源。</p>
+</li>
+<li><p>设置权限防止资源被篡改和删除。</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008171232.png" alt=""></p>
+</li>
+</ol>
+<h1 id="二、文件系统概述"><a href="#二、文件系统概述" class="headerlink" title="二、文件系统概述"></a>二、文件系统概述</h1><ol>
+<li><p>文件系统（存储文件的方式）：即在外部存储设备上组织文件的方法。</p>
+</li>
+<li><p>常见的文件系统：格式化 == 制作文件系统</p>
+<ul>
+<li><code>FAT</code>格式： windows </li>
+<li><code>NTFS</code>格式：windows </li>
+<li><code>EXT</code>格式：liunx 常见</li>
+</ul>
+</li>
+<li><p>格式化：格式化的过程就是把硬盘的所有数据抹除，然后重新在该硬盘上打格子（存储单元）格子有大有小，默认4096字节/4KB</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008171806.png" alt=""></p>
+</li>
+</ol>
+<h1 id="三、NTFS文件系统的特点"><a href="#三、NTFS文件系统的特点" class="headerlink" title="三、NTFS文件系统的特点"></a>三、NTFS文件系统的特点</h1><ol>
+<li>提高磁盘读写性能</li>
+<li>可靠性，加密文件系统，访问控制列表-ACL（设置权限）</li>
+<li>磁盘利用率，压缩，磁盘配额（为不同的用户设置使用空间）</li>
+<li>支持单个文件大于4个G</li>
+</ol>
+<h1 id="四、修改NTFS权限"><a href="#四、修改NTFS权限" class="headerlink" title="四、修改NTFS权限"></a>四、修改NTFS权限</h1><h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><table>
+<thead>
+<tr>
+<th>文件权限</th>
+<th>权限内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>完全控制</td>
+<td>拥有读取、写入、修改、删除文件、及特殊的权限</td>
+</tr>
+<tr>
+<td>修改</td>
+<td>拥有读取、写入、修改、删除文件的权限</td>
+</tr>
+<tr>
+<td>读取和执行</td>
+<td>拥有读取、及执行文件的权限</td>
+</tr>
+<tr>
+<td>读取</td>
+<td>拥有读取文件的权限</td>
+</tr>
+<tr>
+<td>写入</td>
+<td>拥有修改文件内容的权限</td>
+</tr>
+<tr>
+<td>特殊权限</td>
+<td>控制文件权限列表的权限</td>
+</tr>
+</tbody></table>
+<h2 id="文件夹权限"><a href="#文件夹权限" class="headerlink" title="文件夹权限"></a>文件夹权限</h2><table>
+<thead>
+<tr>
+<th>文件夹权限</th>
+<th>权限内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>完全控制</td>
+<td>拥有对文件及文件夹读取、写入、修改、删除文件、及特殊的权限</td>
+</tr>
+<tr>
+<td>修改</td>
+<td>拥有对文件及文件夹读取、写入、修改、删除文件的权限</td>
+</tr>
+<tr>
+<td>读取和执行</td>
+<td>拥有对文件夹中的文件下载、读取、及执行的权限</td>
+</tr>
+<tr>
+<td>读取</td>
+<td>拥有对文件夹中的文件下载、读取的权限</td>
+</tr>
+<tr>
+<td>写入</td>
+<td>拥有在文件夹中创建新的文件的权限</td>
+</tr>
+<tr>
+<td>特殊权限</td>
+<td>控制文件夹权限列表的权限</td>
+</tr>
+</tbody></table>
+<h2 id="取消权限继承"><a href="#取消权限继承" class="headerlink" title="取消权限继承"></a>取消权限继承</h2><ol>
+<li><p>作用：取消后可以任意修改权限列表</p>
+</li>
+<li><p>方法：文件夹右键属性 &gt;&gt; 安全 &gt;&gt; 高级 &gt;&gt; 去掉第一个对号 &gt;&gt; 选择复制 &gt;&gt; 应用（win2003系统）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008173928.png" alt=""></p>
+</li>
+</ol>
+<h2 id="文件及文件夹权限"><a href="#文件及文件夹权限" class="headerlink" title="文件及文件夹权限"></a>文件及文件夹权限</h2><ol>
+<li><p>在<code>D盘</code>创建目录（文件夹）名为：<strong>最高机密</strong>，文件夹右键属性 &gt;&gt; 安全 &gt;&gt; 选择<code>Users</code>组，发现普通用户组的权限有些默认是已经勾选的，并且无法修改，这是因为该文件夹的权限继承了它的父级权限也是就是<code>D盘</code>的权限</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008181351.png" alt=""></p>
+</li>
+<li><p>想要修改<code>D盘</code>下的<strong>最高机密</strong>文件夹的权限，就需要先取消与<code>D盘</code>的继承关系，如下图所示把勾选去掉：</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008181823.png" alt=""></p>
+</li>
+<li><p>取消继承后，就可以任意修改默认的权限了</p>
+</li>
+<li><p>案例说明：</p>
+<ul>
+<li><p>在<code>D盘</code>目录下创建文件夹，并命名为<strong>最高机密</strong>，进入<strong>最高机密</strong>文件夹中，再创建一个文件夹命名为<strong>密码</strong>，并且在创建一个文本文件并写入内容</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008182440.png" alt=""></p>
+</li>
+<li><p>管理员创建两个账户<code>a</code>和<code>b</code>，</p>
+</li>
+<li><p><code>a</code>用户对<strong>最高机密</strong>文件夹只有<strong>打开</strong>和<strong>读取</strong>权限</p>
+</li>
+<li><p><code>b</code>用户对<strong>最高机密</strong>文件夹有<strong>读取</strong>和<strong>写入</strong>权限</p>
+</li>
+</ul>
+</li>
+<li><p>案例步骤：</p>
+<ul>
+<li><p>取消<strong>最高机密</strong>文件夹和D盘的继承关系</p>
+</li>
+<li><p>创建<code>a</code>，<code>b</code>两个账户（默认的普通用户组）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008183125.png" alt=""></p>
+</li>
+<li><p>右键<strong>最高机密</strong>文件夹 &gt;&gt; 属性 &gt;&gt; 安全，删除其他用户只留一个超级管理员（administrator），同时将a，b账户添加到<strong>最高机密</strong>文件夹的权限表中，如下图所示</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008184335.png" alt=""></p>
+</li>
+<li><p><code>a</code>账户权限默认即可，<code>b</code>账户权限只选择<strong>列出文件夹目录</strong>、<strong>写入</strong>，如下图所示</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008184850.png" alt=""></p>
+</li>
+<li><p>登陆<code>a</code>账户验证权限：只能打开文件，无法删除此文件、创建文件夹及文件</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008185428.png" alt=""></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008185600.png" alt=""></p>
+</li>
+<li><p>登陆<code>b</code>账户验证权限：无法打开文件（包括自己创建的）；可以创建文件及文件夹，但是无法重命名、删除</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008190116.png" alt=""></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201008190137.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="五、权限累加"><a href="#五、权限累加" class="headerlink" title="五、权限累加"></a>五、权限累加</h1><ul>
+<li>当用户同时属于多个组时，权限是累加的</li>
+<li>用户最终权限 = 用户自定义权限 + 组权限（等价于<strong>并集</strong>）</li>
+<li>当一个权限，同时处于<strong>允许</strong>和<strong>拒绝</strong>时，<strong>拒绝</strong>权限为第一位，权限最终设定为<strong>拒绝</strong></li>
+</ul>
+<h1 id="六、系统最大权限"><a href="#六、系统最大权限" class="headerlink" title="六、系统最大权限"></a>六、系统最大权限</h1><ol>
+<li><p>超级管理员组<code>administrators</code>拥有系统的最高权限，可对其他低权限的用户的文件及文件夹，进行权限修改</p>
+</li>
+<li><p>如下示例：</p>
+<ul>
+<li><p>低权限<code>b用户</code>，新建文件夹：<strong>b的个人文件</strong>，在文件权限表中，删除所有的用户，包括管理员组（注意先取消权限继承）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201010161317.png" alt=""></p>
+</li>
+<li><p>给b用户完全控制权限，b用户就可以完全控制此文件夹：<strong>b的个人文件</strong></p>
+</li>
+<li><p>登陆administrator用户，发现对此文件夹无法进行操作</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201010162034.png" alt=""></p>
+</li>
+<li><p>文件右键<strong>属性</strong> &gt;&gt; <strong>安全</strong> &gt;&gt; <strong>确定</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201010162146.png" alt=""></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201010162406.png" alt=""></p>
+</li>
+<li><p>替换权限后，<strong>b用户</strong>就失去了对此文件夹的控制权限，连<strong>安全</strong>选项都没有了</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201010162900.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="七、强制继承"><a href="#七、强制继承" class="headerlink" title="七、强制继承"></a>七、强制继承</h1><ol>
+<li><p>作用：高权限用户可对低权限用户，实行强制继承，只要高权限用户设置了强制继承，低权限用户就无法修改高权限用户设定的权限</p>
+</li>
+<li><p>如下图所示：</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/043NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90/20201010165513.png" alt=""></p>
+</li>
+</ol>
+<h1 id="八、文件移动和复制对权限的影响"><a href="#八、文件移动和复制对权限的影响" class="headerlink" title="八、文件移动和复制对权限的影响"></a>八、文件移动和复制对权限的影响</h1><ol>
+<li>在同一分区下，复制文件，权限会被指定的文件夹权限所覆盖；移动文件，文件会保留自己的权限</li>
+<li>在不同的分区下，不管时复制还是移动，文件的权限都会被指定的文件夹权限所覆盖</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">wounded-hearts</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wounded-hearts.github.io/posts/7d527310/">https://wounded-hearts.github.io/posts/7d527310/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wounded-hearts.github.io" target="_blank">乐天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NTFS/">NTFS</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20201010153725.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><button class="reward-button" type="button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png" alt="微信" onclick="window.open('https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png" alt="支付宝" onclick="window.open('https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/18641619/"><img class="next-cover" data-src="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20201010153725.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">破解win7系统密码</div></div></a></div></nav><hr><div id="post-comment"><div class="comment-head"><div class="comment-headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div class="comments-items-1" data-name="Valine"><div class="vcomment" id="vcomment"></div><script>function loadvaline () {  
+  var requestSetting = function (from,set) {
+    var from = from
+    var setting = set.split(',').filter(function(item){
+    return from.indexOf(item) > -1
+    });
+    setting = setting.length == 0 ? from :setting;
+    return setting
+  }
+
+  var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+  var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+  function initValine () {
+    window.valine = new Valine({
+      el:'#vcomment',
+      appId: '4oIr1DcSynB0TTabT7wc489z-gzGzoHsz',
+      appKey: 'oUN4TXcidEOk3PjLVQaP6OJW',
+      placeholder: '说些什么吧',
+      avatar: 'monsterid',
+      meta: guestInfo,
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: 'https://4oir1dcs.lc-cn-n1-shared.com',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      requiredFields: requiredFields
+    });
+  }
+  loadScript('https://cdn.bootcdn.net/ajax/libs/valine/1.4.14/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || false) {
+  window.addEventListener('load', loadvaline)
+}
+else {
+  function loadOtherComment () {
+    loadvaline()
+  }
+}</script></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By wounded-hearts</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hellow! Welcome to my <a href="https://wounded-hearts.github.io" target="_blank">Blog</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/third-party/ClickShowText.js"></script><script src="/js/search/local-search.js"></script></body></html>
