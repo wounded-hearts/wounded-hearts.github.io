@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>破解win7系统密码</title>
+      <link href="/posts/18641619/"/>
+      <url>/posts/18641619/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><ol><li>所用的win7系统必须有粘滞键功能</li><li>win7系统必须存在记事本漏洞</li></ol><h1 id="破解原理"><a href="#破解原理" class="headerlink" title="破解原理"></a>破解原理</h1><ul><li>正常情况下在开机后按<strong>5</strong>次<code>shift键</code>会弹出<strong>粘滞键</strong><code>sethc</code>程序（已登陆和未登录都可以），假如我们把该程序换成<code>cmd</code>程序就可以在未登录时进入DOS窗口，然后新建用户、修改密码等一系列操作</li></ul><h1 id="破解步骤"><a href="#破解步骤" class="headerlink" title="破解步骤"></a>破解步骤</h1><ol><li><p>正常打开虚拟机，在虚拟机打开的过程中（未出现登陆页面之前），强制关闭客户机（若为物理机直接断电即可），此步骤极为重要</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008161811.png" alt=""></p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008162008.png" alt=""></p></li><li><p>继续正常开机 &gt;&gt; 启动修复，如下图所示的界面：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008151750.png" alt=""></p></li><li><p>点击<code>取消</code>按钮，取消系统还原（此时需要耐心等待许久）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008151943.png" alt=""></p></li><li><p>点击查看问题详细信息，下滑至最下方的超链接（本地链接），点击超链接进入记事本界面</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008153150.png" alt=""></p></li><li><p>点击<strong>记事本</strong>中的<code>文件</code>选择<code>打开</code>，进入计算机内部</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008153416.png" alt=""></p></li><li><p>进入存放系统文件的盘（<code>D盘</code>），如下图所示的<code>C盘</code>为系统保留盘，并非正真的<code>C盘</code>，<code>D盘</code>才是系统正真的<code>C盘</code></p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008153955.png" alt=""></p></li><li><p>进入系统盘（<code>D盘</code>），绝对路径：<code>C:\windows\system32</code>，文件类型选择<strong>所有文件</strong></p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008154236.png" alt=""></p></li><li><p>找到<code>sethc.exe</code>这个程序并<strong>重命名</strong>，名称任意，目的是为了我们下次在按5次<code>shift键</code>时不运行该程序（注意观察程序的图标）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008154722.png" alt=""></p></li><li><p>将该目录下的<code>cmd</code>重命名为<code>sethc</code>目的是我们在按5次<code>shift键</code>时运行的是改名后的<code>sethc</code>也就是系统的<code>cmd</code>程序（DOS窗口）；系统默认，在我们连续按5次按<code>shift键</code>后会去<code>C:\windows\system32</code> 下找<code>sethc</code>这个名称的程序，然后运行</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008155026.png" alt=""></p></li><li><p>重启系统，连续按5次<code>shift键</code>，进入DOS窗口，修改密码即可</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008155953.png" alt=""></p></li><li><p>输入修改后的密码，进入以下目录<code>C:\windows\system32</code>，可看到在未登录时的操作痕迹</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008160358.png" alt=""></p></li><li><p>进入系统后，必须将之前的文件名还原，否则会出现以下情况（重新进入<strong>启动修复</strong>界面，继续运行即可自动恢复，但是改名后的粘滞键程序会保留在目录下）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/042%E7%A0%B4%E8%A7%A3win7%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/20201008163206.png" alt=""></p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> win7系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Windows远程连接</title>
       <link href="/posts/ff7043b8/"/>
       <url>/posts/ff7043b8/</url>
