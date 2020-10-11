@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Windows文件共享</title>
+      <link href="/posts/c69b937b/"/>
+      <url>/posts/c69b937b/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="一、准备材料"><a href="#一、准备材料" class="headerlink" title="一、准备材料"></a>一、准备材料</h1><ol><li>win2003系统作为服务器，并且关闭防火墙服务</li><li>winXP系统作为客户端，并且网段与服务器一致（与服务器互通）</li></ol><h1 id="二、服务器端设置共享文件"><a href="#二、服务器端设置共享文件" class="headerlink" title="二、服务器端设置共享文件"></a>二、服务器端设置共享文件</h1><ol><li><p>新建文件夹<strong>共享文件</strong>，右键属性 &gt;&gt; 共享（设置共享权限）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011093706.png" alt=""></p></li><li><p>给共享文件添加普通用户<code>wlet</code>并设置<strong>NTFS权限</strong>（注意先取消权限继承）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011101140.png" alt=""></p></li><li><p>共享权限影响</p><ul><li>在<strong>本地登录</strong>时只受<strong>NTFS权限</strong>影响</li><li><strong>远程登陆</strong>时，将受<strong>共享权限</strong>和<strong>NTFS权限</strong>共同影响，且取<strong>交集</strong></li><li>所以建议设置共享权限Everyone为完全控制，具体权限在NTFS权限设置即可</li></ul></li></ol><h1 id="三、客户端连接"><a href="#三、客户端连接" class="headerlink" title="三、客户端连接"></a>三、客户端连接</h1><ol><li><p>在客户机上，输入地址即可登陆连接，点击共享名<code>share</code>即可进入共享文件夹如下图所示：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011102358.png" alt=""></p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011103140.png" alt=""></p></li><li><p>或者用<code>IP + 共享名</code>（注意：共享名并不是文件夹名），直接进入共享文件夹内部</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011102738.png" alt=""></p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011102924.png" alt=""></p></li></ol><h1 id="四、隐藏共享"><a href="#四、隐藏共享" class="headerlink" title="四、隐藏共享"></a>四、隐藏共享</h1><ol><li><p>创建隐藏共享：只需在<strong>共享名</strong>后面加上<code>$符号</code>，即可将共享文件夹隐藏</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011104105.png" alt=""></p></li><li><p>访问隐藏共享：在访问的路径上，只需加上隐藏文件的共享名<code>jm$</code>，即可进入隐藏文件夹</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011104621.png" alt=""></p></li></ol><h1 id="五、共享命令"><a href="#五、共享命令" class="headerlink" title="五、共享命令"></a>五、共享命令</h1><ol><li><p><code>net share</code> 查看计算机当前共享的所有文件 </p></li><li><p><code>net share aaa /del</code> 取消共享，aaa为共享名</p></li><li><p><code>net share d$=c:\</code> 创建隐藏共享，d为共享名，c:\为共享文件路径</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011105839.png" alt=""></p></li></ol><h1 id="六、关闭共享服务"><a href="#六、关闭共享服务" class="headerlink" title="六、关闭共享服务"></a>六、关闭共享服务</h1><ol><li><p>使用命令<code>net share aaa /del</code>取消共享后，重启服务器后，共享会自动恢复，所以必须用其他方式：修改注册表（永久关闭共享服务）</p></li><li><p><code>win + R</code>输入<code>regedit</code>打开注册表，定位到：<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters</code>，右键新建一个DWORD类型的名为<code>Autoshareserver</code>的键，点击打开，设置值为<code>0</code>（此时的服务器已<strong>永久关闭</strong>自动启动<strong>共享服务</strong>）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011111904.png" alt=""></p></li><li><p>先用命令取消共享，然后重启服务器，<code>net share</code>查看共享服务，此时共享服务就不会自动启动了，但是<code>IPC$</code>隐藏共享依然存在，并且<code>IPC$</code>隐藏共享是无法通过命令来取消的，必须关闭共享服务才能解决</p></li><li><p>继续<code>win + R</code>输入<code>services.msc</code>打开全部服务，选择<code>server</code>并禁用（可先关闭此服务）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011114747.png" alt=""></p></li><li><p>重启服务器，再次运行net share，此时的共享服务已完全被永久关闭</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011115600.png" alt=""></p></li></ol><h1 id="七、关闭445端口"><a href="#七、关闭445端口" class="headerlink" title="七、关闭445端口"></a>七、关闭445端口</h1><ol><li><p>作用：445端口是文件共享端口，所有的共享都要经过此端口，关闭此端口后，共享服务就无法完成了</p></li><li><p>配置高级安全防火墙：<strong>入站规则</strong>（注意：win7或win2008系统以上才有此功能）</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/044Windows%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/20201011120521.png" alt=""></p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文件共享 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NTFS安全权限</title>
       <link href="/posts/7d527310/"/>
       <url>/posts/7d527310/</url>
