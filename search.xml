@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>扫描与爆破</title>
+      <link href="/posts/42742efe/"/>
+      <url>/posts/42742efe/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="常用端口及相关服务"><a href="#常用端口及相关服务" class="headerlink" title="常用端口及相关服务"></a>常用端口及相关服务</h1><table><thead><tr><th align="center">端口号</th><th align="center">服务名称</th></tr></thead><tbody><tr><td align="center">21</td><td align="center">FTP</td></tr><tr><td align="center">22</td><td align="center">SSH（比 Telnet 更安全一点）</td></tr><tr><td align="center">23</td><td align="center">Telnet</td></tr><tr><td align="center">25</td><td align="center">SMTP（邮件发送服务）</td></tr><tr><td align="center">80</td><td align="center">HTTTP</td></tr><tr><td align="center">443</td><td align="center">HTTPS</td></tr><tr><td align="center">445</td><td align="center">SMB（文件共享服务）</td></tr><tr><td align="center">1433</td><td align="center">SQL Server</td></tr><tr><td align="center">1521</td><td align="center">Oracle</td></tr><tr><td align="center">3306</td><td align="center">MySQL</td></tr><tr><td align="center">3389</td><td align="center">RDP（windows远程连接）</td></tr></tbody></table><h1 id="扫描工具"><a href="#扫描工具" class="headerlink" title="扫描工具"></a>扫描工具</h1><h2 id="nmap扫描器"><a href="#nmap扫描器" class="headerlink" title="nmap扫描器"></a>nmap扫描器</h2><table><thead><tr><th align="center">命令</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center">-sP</td><td align="center">ping 扫描</td></tr><tr><td align="center">-p</td><td align="center">指定端口范围</td></tr><tr><td align="center">-sV</td><td align="center">服务版本探测</td></tr><tr><td align="center">-O（大写）</td><td align="center">启用操作系统探测</td></tr><tr><td align="center">-A</td><td align="center">全面扫描</td></tr><tr><td align="center">-oN</td><td align="center">扫描结果保存为 txt</td></tr><tr><td align="center">-v</td><td align="center">显示扫描进度</td></tr></tbody></table><ul><li>示例：<ol><li><code>nmap -sP 10.1.1.1/24</code> ：扫描网段在线主机 <code>*/24</code>为网段参数，即扫描<code>10.1.1.X</code>网段</li><li><code>nmap -p 21,23,3389 10.1.1.1</code>： 扫描主机开放的指定端口（<code>1-65535</code>全端口扫描）加上 <code>-sV</code> 可以查看服务版本，</li><li><code>namp -A 10.0.0.1 -O -oN D:\result.txt</code>： 全面扫描，<code>-O</code>查看系统版本，<code>-oN</code>保存扫描结果到指定位置</li></ol></li></ul><h2 id="hydra爆破工具（九头蛇）"><a href="#hydra爆破工具（九头蛇）" class="headerlink" title="hydra爆破工具（九头蛇）"></a>hydra爆破工具（九头蛇）</h2><ol><li>参数：<ul><li><code>-vV</code>：显示执行过程</li><li><code>-L</code>：后面添加账户字典</li><li><code>-P</code>：后面添加密码字典</li><li><code>-l</code>：后面添加账户</li><li><code>-p</code>：后面添加密码</li></ul></li><li>格式：<ul><li><code>hydra IP -l 用户名 -p 密码 服务</code> （指定账户密码爆破）</li><li><code>hydra IP -L 用户名字典 -P 密码字典 服务</code> （指定账户密码字典进行爆破）</li></ul></li><li>示例：<ul><li><code>hydra 10.0.0.1 -L user.txt -P pass.txt telnet -vV</code> （爆破telnet服务，并显示过程）</li><li><code>hydra 10.0.0.1 -L user.txt -P pass.txt rdp</code> （爆破windows远程连接）</li><li><code>hydra 10.0.0.1 -L user.txt -P pass.txt ftp</code> （爆破文件传输）</li><li><code>hydra 10.0.0.1 -L user.txt -P pass.txt smb</code> （爆破文件共享）</li></ul></li></ol><h2 id="本地爆破"><a href="#本地爆破" class="headerlink" title="本地爆破"></a>本地爆破</h2><ol><li><p>利用<a href="https://wlet.gitee.io/posts/18641619/" target="_blank" rel="noopener">5次shift粘滞键漏洞</a> </p></li><li><p>getpass工具爆破：</p><ul><li><p>原理：登陆系统后，系统账户密码以明文形式存储在<strong>内存</strong>中，利用此工具可获得账户密码</p></li><li><p>如下图所示：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026173936.png" alt=""></p></li></ul></li><li><p>pwdump工具爆破：</p><ul><li><p>原理：系统的账户密码以<strong>hash值</strong>的形式存储于指定的文件<strong>SAM</strong>中，可用此工具获取hash值，进行<strong>撞库</strong>爆破</p></li><li><p>Windows账户密码存储位置（绝对路径）：<code>C:\windows\system32\config\SAM</code> （SAM文件需用指定的文件才能打开，如<code>pwdump</code>等工具）</p></li><li><p>获取hash密码步骤：</p><ul><li><p>第一步：使用管理员权限打开cmd窗口</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026174320.png" alt=""></p></li><li><p>第二步：打开DOS窗口，切换路径到工具存放的路径下，并打开工具</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026174627.png" alt=""></p></li><li><p>第三步：进入工具内部，输入命令<code>QuarksPwDump.exe -dhl</code>，抓取hash值</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026175216.png" alt=""></p></li></ul></li></ul></li><li><p>SAMInside工具撞库破解hash</p><ul><li><p>第一步：将获取到的hash值，保存在指定文件中，如：result.txt</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026175806.png" alt=""></p></li><li><p>第二步：打开SAMInside工具的根目录，设置密码字典</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026180302.png" alt=""></p></li><li><p>第三步：打开工具，选择hash文件，开始撞库爆破</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026180641.png" alt=""></p></li><li><p>第四步：查看撞库结果</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/053%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%88%86%E7%A0%B4/20201026180813.png" alt=""></p></li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 扫描器 </tag>
+            
+            <tag> 爆破工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>KPI实验</title>
       <link href="/posts/fcaf070e/"/>
       <url>/posts/fcaf070e/</url>
@@ -529,11 +556,11 @@
       
         <tags>
             
-            <tag> 工具 </tag>
-            
             <tag> 图床 </tag>
             
             <tag> PicGo </tag>
+            
+            <tag> 工具 </tag>
             
         </tags>
       
@@ -558,9 +585,9 @@
       
         <tags>
             
-            <tag> 爬虫 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> 爬虫 </tag>
             
         </tags>
       
@@ -614,11 +641,11 @@
       
         <tags>
             
+            <tag> 爬虫 </tag>
+            
             <tag> Python3语言 </tag>
             
             <tag> Python3爬虫 </tag>
-            
-            <tag> 爬虫 </tag>
             
         </tags>
       
@@ -643,11 +670,11 @@
       
         <tags>
             
+            <tag> 爬虫 </tag>
+            
             <tag> Python3语言 </tag>
             
             <tag> Python3爬虫 </tag>
-            
-            <tag> 爬虫 </tag>
             
         </tags>
       
