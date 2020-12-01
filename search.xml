@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>VLAN(虚拟局域网)</title>
+      <link href="/posts/88d42c29/"/>
+      <url>/posts/88d42c29/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="一、VLAN概述"><a href="#一、VLAN概述" class="headerlink" title="一、VLAN概述"></a>一、VLAN概述</h1><ol><li>VLAN的作用：逻辑上隔离广播（物理隔离广播需要用<strong>路由器</strong>），每个交换机默认创建了几个vlan，其中vlan1是默认开启的状态，局域网内，之所以能够互通，是因为大家默认都处于同一个vlan1中</li><li>广播的危害：增加网络/终端负担、传播病毒</li><li>如何控制广播：控制广播 = 隔离广播域（<strong>路由器</strong>或者<strong>VLAN</strong>）</li><li>路由器隔离时的缺点：成本高，需要很多路由器，不灵活</li><li>VLAN隔离的优点：<ul><li>成本低、非常灵活</li><li>一个VLAN = 一个广播域 = 一个网段</li><li>一个交换机可以创建上千个VLAN</li></ul></li></ol><h1 id="二、VLAN的类型"><a href="#二、VLAN的类型" class="headerlink" title="二、VLAN的类型"></a>二、VLAN的类型</h1><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/060VLAN(%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91)/20201113173543.png" alt=""></p><h1 id="三、VLAN的简单设置"><a href="#三、VLAN的简单设置" class="headerlink" title="三、VLAN的简单设置"></a>三、VLAN的简单设置</h1><h2 id="查看VLAN"><a href="#查看VLAN" class="headerlink" title="查看VLAN"></a>查看VLAN</h2><ul><li><code>show vlan brief</code></li></ul><h2 id="创建VLAN"><a href="#创建VLAN" class="headerlink" title="创建VLAN"></a>创建VLAN</h2><ol><li><code>config t</code>进入全局配置模式</li><li><code>vlan id1,id2</code>一次创建两个及两个以上VLAN（真实设备可用）</li><li>示例：<code>vlan 10 vlan10</code>创建一个VLAN，<strong>id</strong>为<strong>10</strong>，<strong>昵称</strong> 为<strong>vlan10</strong></li></ol><h2 id="接口配置VLAN"><a href="#接口配置VLAN" class="headerlink" title="接口配置VLAN"></a>接口配置VLAN</h2><ol><li><p><code>interface f0/x</code> 进入指定的接口</p></li><li><p><code>switchport access vlan + id</code> 给此接口配置指定的VLAN（id）</p></li><li><p>VLAN配置示例图</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/060VLAN(%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91)/20201113180704.png" alt=""></p></li><li><p>配置后局域网的结果显示</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/060VLAN(%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91)/20201113181205.png" alt=""></p></li></ol><h1 id="四、Trunk-中继端口"><a href="#四、Trunk-中继端口" class="headerlink" title="四、Trunk(中继端口)"></a>四、Trunk(中继端口)</h1><ul><li><strong>配置trunk主要解决了跨交换机相同vlan的PC间的通信</strong></li></ul><h2 id="交换机端口链路类型"><a href="#交换机端口链路类型" class="headerlink" title="交换机端口链路类型"></a>交换机端口链路类型</h2><ol><li>接入端口：也称为access端口，一般用于连接PC，只能属于某一个vlan，也只能传输一个vlan的数据</li><li>中继端口：也称为trunk端口，一般用于连接其他交换机，属于公共端口，允许所有vlan的数据通过</li></ol><h2 id="trunk-中继链路-公共链路"><a href="#trunk-中继链路-公共链路" class="headerlink" title="trunk/中继链路/公共链路"></a>trunk/中继链路/公共链路</h2><ol><li>作用：trunk端口不属于任何VLAN，但是允许任何vlan的数据通过</li><li>方法：通过在数据帧上加标签，来区分不同vlan的数据</li></ol><h2 id="trunk标签"><a href="#trunk标签" class="headerlink" title="trunk标签"></a>trunk标签</h2><ol><li>ISL标签：cisco私有的，标签大小30字节 26+4；加在帧的两边，前面加26字节，后面加4字节</li><li>802.1q：公有协议，所有厂家都支持，标签大小4字节；属于内部标签，将帧切开，标签加在帧的中间4个字节</li></ol><h2 id="配置命令"><a href="#配置命令" class="headerlink" title="配置命令"></a>配置命令</h2><ol><li><code>inter f0/x</code> 进入指定接口</li><li><code>switchprot trunk encapsulation dot1q/isl</code> 选择协议类型（真实设备上存在，具体命令看官方手册）</li><li><code>switchprot mode trunk</code> 将此接口配置为trunk口</li><li>注意事项：一旦此端口配置成trunk端口，那么该端口不会在<strong>vlan表</strong>里出现！！！</li></ol><h1 id="五、多个交换机配置VLAN"><a href="#五、多个交换机配置VLAN" class="headerlink" title="五、多个交换机配置VLAN"></a>五、多个交换机配置VLAN</h1><ol><li><p>说明：当PC被同一个交换机连接时，相同vlan可互通，不同vlan则不能互通；但是多个PC被多个交换机连接时，需要对交换机的<strong>中继端口</strong>进行配置，否则相隔交换机的相同vlan也不可互通</p></li><li><p>交换机配置示例图</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/060VLAN(%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91)/20201113191129.png" alt=""></p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> VLAN </tag>
+            
+            <tag> 虚拟局域网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ARP协议</title>
       <link href="/posts/7e8d809/"/>
       <url>/posts/7e8d809/</url>
@@ -1415,9 +1442,9 @@
       
         <tags>
             
-            <tag> VPN </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> VPN </tag>
             
         </tags>
       
@@ -1475,9 +1502,9 @@
       
         <tags>
             
-            <tag> 工具 </tag>
-            
             <tag> Git </tag>
+            
+            <tag> 工具 </tag>
             
         </tags>
       
