@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>单臂路由</title>
+      <link href="/posts/bf9393d0/"/>
+      <url>/posts/bf9393d0/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><ol><li><strong>单臂路由</strong>：（router-on-a-stick）是指在<strong>路由器</strong>的一个<strong>接口</strong>上通过配置<strong>子接口</strong>（或<strong>逻辑接口</strong>，并不存在真正物理接口）的方式，实现不同VLAN（虚拟局域网）之间的互联互通</li><li>单臂路由的子接口：<ul><li>由<strong>物理接口</strong>虚拟创建的接口</li><li>使用子接口，必须要提前开启此物理接口</li><li>物理接口可创建很多虚拟子接口</li></ul></li><li>单臂路由的优缺点“<ul><li>优点：实现不同vlan之间的通信，有助理解、学习VLAN原理和子接口概念</li><li>缺点：容易成为网络单点故障，所有的子接口都依赖于总物理接口，vlan间通信的每一个帧都进行单臂路由（<strong>现实环境中已被淘汰</strong>）</li></ul></li></ol><h1 id="二、单臂路由配置"><a href="#二、单臂路由配置" class="headerlink" title="二、单臂路由配置"></a>二、单臂路由配置</h1><ol><li><p>单臂路由原理示例图</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/061%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1/20201201144344.png" alt=""></p></li><li><p>单臂路由示例图</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/061%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1/20201201144150.png" alt=""></p></li></ol><h1 id="三、不同vlan实现通信"><a href="#三、不同vlan实现通信" class="headerlink" title="三、不同vlan实现通信"></a>三、不同vlan实现通信</h1><ol><li><p>使用路由来实现</p></li><li><p>不使用路由实现不同vlan间的通信，示例图如下所示：</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/061%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1/20201201150112.png" alt=""></p></li></ol><h1 id="四、单臂路由与DHCP中继"><a href="#四、单臂路由与DHCP中继" class="headerlink" title="四、单臂路由与DHCP中继"></a>四、单臂路由与DHCP中继</h1><h2 id="VTP概述"><a href="#VTP概述" class="headerlink" title="VTP概述"></a>VTP概述</h2><ol><li>说明：VTP=VLAN Trunking Protocol，是一种协议，“VLAN中继协议”，是思科私有协议。主要用于管理在同一个域的网络范围内VLAN的建立、删除和重命名</li><li>作用：在相连交换机中，在其中一个交换机中，创建vtp服务器，其他交换机就作为了客户机，可以自动学习服务器的命令</li></ol><h2 id="路由器实现DHCP服务"><a href="#路由器实现DHCP服务" class="headerlink" title="路由器实现DHCP服务"></a>路由器实现DHCP服务</h2><ol><li><p>企业级路由器可以充当DHCP服务器</p></li><li><p>动态网络拓扑图，如下所示</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/061%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1/20201201162647.png" alt=""></p></li><li><p>作用：实现PC自动获取IP地址</p></li><li><p>删除路由器上的DHCP服务器，命令如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">no ip dhcp excluded-address 10.0.0.1 10.0.0.99</span><br><span class="line">no ip dhcp excluded-address 20.0.0.1 20.0.0.99</span><br><span class="line">no ip dhcp excluded-address 30.0.0.1 30.0.0.99</span><br><span class="line">no ip dhcp pool v10</span><br><span class="line">no ip dhcp pool v20</span><br><span class="line">no ip dhcp pool v30</span><br></pre></td></tr></table></figure></li></ol><h2 id="使用服务器完成DHCP服务"><a href="#使用服务器完成DHCP服务" class="headerlink" title="使用服务器完成DHCP服务"></a>使用服务器完成DHCP服务</h2><ol><li><p>动态网络拓扑图，如下所示</p><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/061%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1/20201201164545.png" alt=""></p></li><li><p>原理：服务器与其他PC处于不同vlan中，无法完成广播，因此无法实现DHCP服务；但是，路由器可以控制vlan，路由器可以通过单播的形式，可以让指定的服务器发送广播，然后路由器自己转发给PC</p></li><li><p>作用：路由器还是路由器，服务器还是服务器</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 路由器 </tag>
+            
+            <tag> VLAN </tag>
+            
+            <tag> 虚拟局域网 </tag>
+            
+            <tag> 单臂路由 </tag>
+            
+            <tag> VTP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>VLAN(虚拟局域网)</title>
       <link href="/posts/88d42c29/"/>
       <url>/posts/88d42c29/</url>
