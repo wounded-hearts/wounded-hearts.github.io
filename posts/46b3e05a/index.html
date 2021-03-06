@@ -1,0 +1,452 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VPN技术 | 乐天的博客</title><meta name="description" content="说明：VPN可以实现在公用网络上建立专用网络，进行加密通讯；在企业网络中有广泛应用；VPN网关可通过对数据包的加密和数据包目标地址的转换实现远程访问；VPN还可通过服务器、硬件、软件等多种方式实现！"><meta name="keywords" content="VPN,IPsecVPN"><meta name="author" content="wounded-hearts"><meta name="copyright" content="wounded-hearts"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wounded-hearts.github.io/posts/46b3e05a/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="VPN技术"><meta property="og:url" content="https://wounded-hearts.github.io/posts/46b3e05a/"><meta property="og:site_name" content="乐天的博客"><meta property="og:description" content="说明：VPN可以实现在公用网络上建立专用网络，进行加密通讯；在企业网络中有广泛应用；VPN网关可通过对数据包的加密和数据包目标地址的转换实现远程访问；VPN还可通过服务器、硬件、软件等多种方式实现！"><meta property="og:image" content="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210306163342.jpg"><meta property="article:published_time" content="2021-03-06T07:13:59.000Z"><meta property="article:modified_time" content="2021-03-06T08:34:06.728Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="next" title="安装电脑系统(win10)" href="https://wounded-hearts.github.io/posts/cf5559c6/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"❤变强❤,❤变强❤,❤我要变强❤,❤努力❤,❤努力❤,❤我要努力❤,❤学习❤,❤学习❤,❤我要学习❤,❤奋斗❤,❤奋斗❤,❤我要奋斗❤,❤加油❤,❤加油❤,❤我要加油❤","fontSize":"20px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-03-06 16:34:06'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/dd.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">68</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">82</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、VPN概述"><span class="toc-number">1.</span> <span class="toc-text">一、VPN概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、VPN的类型"><span class="toc-number">2.</span> <span class="toc-text">二、VPN的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#远程访问VPN"><span class="toc-number">2.1.</span> <span class="toc-text">远程访问VPN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#点到点VPN"><span class="toc-number">2.2.</span> <span class="toc-text">点到点VPN</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、IPsecVPN（点到点VPN）"><span class="toc-number">3.</span> <span class="toc-text">三、IPsecVPN（点到点VPN）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一阶段：管理连接"><span class="toc-number">3.1.</span> <span class="toc-text">第一阶段：管理连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二阶段：数据连接"><span class="toc-number">3.2.</span> <span class="toc-text">第二阶段：数据连接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、IPsecVPN实验一（VPN隧道）"><span class="toc-number">4.</span> <span class="toc-text">四、IPsecVPN实验一（VPN隧道）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络拓扑图"><span class="toc-number">4.1.</span> <span class="toc-text">网络拓扑图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置网关、路由表"><span class="toc-number">4.2.</span> <span class="toc-text">配置网关、路由表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN隧道"><span class="toc-number">4.3.</span> <span class="toc-text">VPN隧道</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、IPsecVPN实验二（NAT与VPN）"><span class="toc-number">5.</span> <span class="toc-text">五、IPsecVPN实验二（NAT与VPN）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络拓扑图-1"><span class="toc-number">5.1.</span> <span class="toc-text">网络拓扑图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置网关"><span class="toc-number">5.2.</span> <span class="toc-text">配置网关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建扩展ACL"><span class="toc-number">5.3.</span> <span class="toc-text">创建扩展ACL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PAT动态映射"><span class="toc-number">5.4.</span> <span class="toc-text">PAT动态映射</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、IPsecVPN实验三（NAT与VPN双通道）"><span class="toc-number">6.</span> <span class="toc-text">六、IPsecVPN实验三（NAT与VPN双通道）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络拓扑图-2"><span class="toc-number">6.1.</span> <span class="toc-text">网络拓扑图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置网关、路由表-1"><span class="toc-number">6.2.</span> <span class="toc-text">配置网关、路由表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建立VPN隧道"><span class="toc-number">6.3.</span> <span class="toc-text">建立VPN隧道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开通VPN隧道"><span class="toc-number">6.4.</span> <span class="toc-text">开通VPN隧道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改ACL表"><span class="toc-number">6.5.</span> <span class="toc-text">修改ACL表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、IPsecVPN实验四（VPN隧道的使用）"><span class="toc-number">7.</span> <span class="toc-text">七、IPsecVPN实验四（VPN隧道的使用）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络拓扑图-3"><span class="toc-number">7.1.</span> <span class="toc-text">网络拓扑图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置ACL"><span class="toc-number">7.2.</span> <span class="toc-text">配置ACL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、远程访问VPN实验"><span class="toc-number">8.</span> <span class="toc-text">八、远程访问VPN实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实验拓扑图"><span class="toc-number">8.1.</span> <span class="toc-text">实验拓扑图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置国外服务器"><span class="toc-number">8.2.</span> <span class="toc-text">配置国外服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置VPN服务器"><span class="toc-number">8.3.</span> <span class="toc-text">配置VPN服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置win7系统"><span class="toc-number">8.4.</span> <span class="toc-text">配置win7系统</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210306163342.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">乐天的博客</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">VPN技术</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2021-03-06 15:13:59"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2021-03-06</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2021-03-06 16:34:06"><i class="fas fa-history fa-fw"></i> 更新于 2021-03-06</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">2.6k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 10 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="一、VPN概述"><a href="#一、VPN概述" class="headerlink" title="一、VPN概述"></a>一、VPN概述</h1><ol>
+<li>全称：<code>Virtual Private Network</code> （<strong>虚拟专有网络</strong>、<strong>虚拟专网</strong>）</li>
+<li>作用：<ul>
+<li>VPN可以实现在不安全的网络上，安全的传输数据，类似<strong>专网</strong></li>
+<li>VPN只是一个技术，使用<a href="https://wlet.gitee.io/posts/fcaf070e/" target="_blank" rel="noopener">PKI技术</a>，来保证数据的安全三要素</li>
+</ul>
+</li>
+<li>安全三要素：<strong>完整性</strong>、<strong>机密性</strong>、<strong>身份验证</strong></li>
+<li>路由器的工作原理：内网 &gt;&gt; 外网（顺序）：路由 &gt;&gt; NAT &gt;&gt; VPN &gt;&gt; 出去</li>
+<li>VPN隧道的优点：<ul>
+<li>安全性</li>
+<li>合并两家企业内网</li>
+</ul>
+</li>
+<li>VPN隧道技术：重新封装技术+加密认证技术<ul>
+<li>传输模式：只加密上层数据，不加密私有IP包头，速度快</li>
+<li>隧道模式（默认推荐）：加密整个私有IP包，包括IP包头，更安全，速度相对慢</li>
+</ul>
+</li>
+</ol>
+<h1 id="二、VPN的类型"><a href="#二、VPN的类型" class="headerlink" title="二、VPN的类型"></a>二、VPN的类型</h1><h2 id="远程访问VPN"><a href="#远程访问VPN" class="headerlink" title="远程访问VPN"></a>远程访问VPN</h2><ol>
+<li>条件:<ul>
+<li>在<strong>公司</strong>需要搭建<strong>VPN服务器</strong></li>
+<li>VPN<strong>服务器</strong>需要对VPN<strong>客户端</strong>进行<strong>身份验证</strong></li>
+<li>VPN<strong>服务器</strong>需要给VPN<strong>客户端</strong>下发<strong>权限</strong>及<strong>IP</strong>地址</li>
+</ul>
+</li>
+<li>作用：<ul>
+<li>一般用在个人到安全连接企业内部</li>
+<li>一般出差员工/在家办公，安全连接内网时使用</li>
+<li>一般公司部署VPN服务器，员工在外拨号连接VPN即可</li>
+</ul>
+</li>
+<li>常见RA-VPN协议：<code>PPTP VPN</code>、<code>L2TP VPN</code>、<code>SSTP VPN</code>、<code>EZ VPN</code>（easyvpn）、<code>SSL VPN</code> </li>
+</ol>
+<h2 id="点到点VPN"><a href="#点到点VPN" class="headerlink" title="点到点VPN"></a>点到点VPN</h2><ol>
+<li>一般用在企业对企业安全连接</li>
+<li>一般需要在两个企业<strong>总出口</strong>设备之间建立<strong>VPN通道</strong></li>
+<li>常见的点到点VPN：<code>IPsecVPN</code> （国际通用）</li>
+<li>IPsecVPN：属于点到点VPN，可以在2家企业之间建立VPN隧道</li>
+</ol>
+<h1 id="三、IPsecVPN（点到点VPN）"><a href="#三、IPsecVPN（点到点VPN）" class="headerlink" title="三、IPsecVPN（点到点VPN）"></a>三、IPsecVPN（点到点VPN）</h1><h2 id="第一阶段：管理连接"><a href="#第一阶段：管理连接" class="headerlink" title="第一阶段：管理连接"></a>第一阶段：管理连接</h2><ol>
+<li><p>目的：通信双方设备通过非对称加密算法，加密对称加密算法所使用的对称密钥</p>
+</li>
+<li><p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">conf t</span><br><span class="line">crypto isakmp policy 1          # 在路由器上创建一张策略集表，表名为1</span><br><span class="line">encryption aes                  # 对称加密，选择aes类型（种类：des&#x2F;3des&#x2F;aes）</span><br><span class="line">hash sha                        # 加密使用sha（种类：md5&#x2F;sha）</span><br><span class="line">group 2                         # 选择加密长度为256（其他长度：1&#x2F;2&#x2F;5）</span><br><span class="line">authentication pre-share        # 设置身份验证，预共享密钥算法</span><br><span class="line">lifetime 3600秒                 # 可以省略，默认86400秒（24小时）后失效</span><br><span class="line">exit</span><br><span class="line">crypto isakmp key 预共享密钥名称 address 对方的公网IP地址     # 确认目标</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看策略集：<code>show crypto isakmp sa</code> </p>
+</li>
+<li><p>查看第一阶段的参数信息：<code>show crypto isakmp policy</code> </p>
+</li>
+</ol>
+<h2 id="第二阶段：数据连接"><a href="#第二阶段：数据连接" class="headerlink" title="第二阶段：数据连接"></a>第二阶段：数据连接</h2><ol>
+<li><p>目的：通过对称加密算法，加密实际所要传输的私网数据</p>
+</li>
+<li><p>设置加密方式的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">access-list acl表名 permit ip 192.168.0.0 0.0.255.255 176.16.0.0 0.0.255.255   # 创建acl表（100），定义VPN触发流量</span><br><span class="line">crypto ipsec transform-set 传输模式名 加密方式c        # 定义加密方式（esp&#x2F;ah-des&#x2F;3des&#x2F;aes esp&#x2F;ah-md5&#x2F;sha-hma）</span><br><span class="line">示例：crypto ipsec transform-set VPNtran esp-aes esp-sha-hmac</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加密方式说明：</p>
+<ul>
+<li>esp：支持加密及认证（身份验证+完整性）</li>
+<li>ah：只支持认证（身份验证+完整性）</li>
+</ul>
+</li>
+<li><p>查看加密参数及传输模式：<code>show crypto ipsec transform-set</code></p>
+</li>
+<li><p>创建MAP映射表命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conf t</span><br><span class="line">crypto map 映射表名 1 ipsec-isakmp</span><br><span class="line">match address acl表名                     # 与刚创建的acl表名一致</span><br><span class="line">set transform-set 传输模式名</span><br><span class="line">set peer 对方的公网IP</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将map表应用到外网端口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inter f0&#x2F;1                # 进入外网接口</span><br><span class="line">crypto map 映射表名        # 将映射表应用到此接口</span><br><span class="line">exit</span><br><span class="line">注意：一个接口只能应用一个map表</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看阶段二状态：<code>show crypto ipsec sa</code> </p>
+</li>
+</ol>
+<h1 id="四、IPsecVPN实验一（VPN隧道）"><a href="#四、IPsecVPN实验一（VPN隧道）" class="headerlink" title="四、IPsecVPN实验一（VPN隧道）"></a>四、IPsecVPN实验一（VPN隧道）</h1><h2 id="网络拓扑图"><a href="#网络拓扑图" class="headerlink" title="网络拓扑图"></a>网络拓扑图</h2><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210304111531.png" alt=""></p>
+<h2 id="配置网关、路由表"><a href="#配置网关、路由表" class="headerlink" title="配置网关、路由表"></a>配置网关、路由表</h2><ol>
+<li><p>给<strong>路由器一</strong>配置网关、路由表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">enable</span><br><span class="line">config terminal</span><br><span class="line">no ip domain-lookup</span><br><span class="line">interface f0&#x2F;1</span><br><span class="line">ip address 192.168.1.254 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">interface f0&#x2F;0</span><br><span class="line">ip address 100.1.1.1 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">ip route 0.0.0.0.0 0.0.0.0 100.1.1.2</span><br><span class="line">do show ip interface brief</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给<strong>路由器二</strong>配置网关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">enable</span><br><span class="line">config terminal</span><br><span class="line">no ip domain-lookup</span><br><span class="line">interface f0&#x2F;0</span><br><span class="line">ip address 100.1.1.2 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">interface f0&#x2F;1</span><br><span class="line">ip address 200.1.1.1 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">do show ip interface brief</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给<strong>路由器三</strong>配置网关、路由表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">enable</span><br><span class="line">config terminal</span><br><span class="line">no ip domain-lookup</span><br><span class="line">interface f0&#x2F;0</span><br><span class="line">ip address 200.1.1.2 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">interface f0&#x2F;1</span><br><span class="line">ip address 172.16.1.254 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">ip route 0.0.0.0 0.0.0.0 200.1.1.1</span><br><span class="line">do show ip interface brief</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="VPN隧道"><a href="#VPN隧道" class="headerlink" title="VPN隧道"></a>VPN隧道</h2><ol>
+<li><p>给<strong>路由器一</strong>建立VPN隧道</p>
+<ul>
+<li>第一步：创建传输集（策略集）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">crypto isakmp policy 1</span><br><span class="line">encryption aes</span><br><span class="line">group 2</span><br><span class="line">hash sha</span><br><span class="line">authentication pre-share</span><br><span class="line">exit</span><br><span class="line">crypto isakmp key testVPN address 200.1.1.2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二步：设置加密方式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">acc 100 permit ip 192.168.1.0 0.0.0.255 172.16.1.0 0.0.0.255</span><br><span class="line">crypto ipsec transform-set VPNtran esp-aes esp-sha-hmac</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第三步：创建map映射表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crypto map testmap 1 ipsec-isakmp</span><br><span class="line">set peer 200.1.1.2</span><br><span class="line">match address 100</span><br><span class="line">set transform-set VPNtran</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第四步：将map映射表应用到接口</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">interface f0&#x2F;0</span><br><span class="line">crypto map testmap</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给<strong>路由器三</strong>开通隧道</p>
+<ul>
+<li>第一步：创建传输集（策略集）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">crypto isakmp policy 1</span><br><span class="line">encryption aes</span><br><span class="line">group 2</span><br><span class="line">hash sha</span><br><span class="line">authentication pre-share</span><br><span class="line">exit</span><br><span class="line">crypto isakmp key testVPN address 100.1.1.1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二步：设置加密方式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">acc 100 permit ip 172.16.1.0 0.0.0.255 192.168.1.0 0.0.0.255</span><br><span class="line">crypto ipsec transform-set VPNtran esp-aes esp-sha-hmac</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第三步：创建map映射表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crypto map testmap 1 ipsec-isakmp</span><br><span class="line">set peer 100.1.1.1</span><br><span class="line">match address 100</span><br><span class="line">set transform-set VPNtran</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第四步：将map映射表应用到接口</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">interface f0&#x2F;0</span><br><span class="line">crypto map testmap</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看VPN隧道连接：<code>ping -t 172.16.1.1</code> </p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210304135054.png" alt=""></p>
+</li>
+</ol>
+<h1 id="五、IPsecVPN实验二（NAT与VPN）"><a href="#五、IPsecVPN实验二（NAT与VPN）" class="headerlink" title="五、IPsecVPN实验二（NAT与VPN）"></a>五、IPsecVPN实验二（NAT与VPN）</h1><ul>
+<li>实验目的：在<strong>实验一</strong>完成的<strong>基础</strong>上，实现<strong>私有IP</strong><code>192.168.1.1</code>既能使用<strong>VPN隧道</strong>，也能访问<strong>互联网</strong>服务器</li>
+</ul>
+<h2 id="网络拓扑图-1"><a href="#网络拓扑图-1" class="headerlink" title="网络拓扑图"></a>网络拓扑图</h2><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210304150644.png" alt=""></p>
+<h2 id="配置网关"><a href="#配置网关" class="headerlink" title="配置网关"></a>配置网关</h2><ul>
+<li><p>给<strong>路由器二</strong>配置网关（服务器网关）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface f1&#x2F;0</span><br><span class="line">ip addr 150.1.1.254 255.255.255.0</span><br><span class="line">no shutdown</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="创建扩展ACL"><a href="#创建扩展ACL" class="headerlink" title="创建扩展ACL"></a>创建扩展ACL</h2><ol>
+<li><p>进入<strong>路由器一</strong>的配置终端</p>
+</li>
+<li><p>定义<strong>内网接口</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int f0&#x2F;1</span><br><span class="line">ip nat inside</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义<strong>外网接口</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int f0&#x2F;0</span><br><span class="line">ip nat outside</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看已有的acl表：show ip acce （防止覆盖已有的acl表）</p>
+</li>
+<li><p>定义acl表：</p>
+<ul>
+<li><code>acc 101 deny ip 192.168.1.0 0.0.0.255 172.16.1.0 0.0.0.255</code> （禁止192访问172）</li>
+<li><code>acc 101 permit ip any any</code> （允许任意IP访问任意IP）</li>
+</ul>
+</li>
+</ol>
+<h2 id="PAT动态映射"><a href="#PAT动态映射" class="headerlink" title="PAT动态映射"></a>PAT动态映射</h2><ul>
+<li>做PAT动态映射：<code>ip nat inside source list 101 int f0/0 overload</code>  </li>
+<li>作用：给内部地址池做动态映射，并指定出接口f0/0，并且开启端口复用技术，实现私网地址访问互联网</li>
+</ul>
+<h1 id="六、IPsecVPN实验三（NAT与VPN双通道）"><a href="#六、IPsecVPN实验三（NAT与VPN双通道）" class="headerlink" title="六、IPsecVPN实验三（NAT与VPN双通道）"></a>六、IPsecVPN实验三（NAT与VPN双通道）</h1><ul>
+<li>实验目的：<ol>
+<li>在<strong>实验二</strong>的基础上，实现<strong>私有IP</strong><code>192.168.1.1</code>和<code>10.1.1.1</code>既可以访问能使用<strong>VPN隧道</strong>，也能访问<strong>互联网</strong>服务器</li>
+<li><code>192.168.1.1</code>可以访问<code>10.1.1.1</code>和<code>150.1.1.1</code>和<code>176.16.1.1</code></li>
+<li><code>10.1.1.1</code>可以访问<code>192.168.1.1</code>和<code>150.1.1.1</code></li>
+</ol>
+</li>
+</ul>
+<h2 id="网络拓扑图-2"><a href="#网络拓扑图-2" class="headerlink" title="网络拓扑图"></a>网络拓扑图</h2><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210304171801.png" alt=""></p>
+<h2 id="配置网关、路由表-1"><a href="#配置网关、路由表-1" class="headerlink" title="配置网关、路由表"></a>配置网关、路由表</h2><ol>
+<li><p>给路由器四，配置网关、路由表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">enable</span><br><span class="line">config terminal</span><br><span class="line">no ip domain-lookup</span><br><span class="line">interface f0&#x2F;1</span><br><span class="line">ip address 10.1.1.254 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">interface f0&#x2F;0</span><br><span class="line">ip address 120.1.1.2 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br><span class="line">ip route 0.0.0.0 0.0.0.0 120.1.1.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给路由器二，配置网关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface f1&#x2F;1</span><br><span class="line">ip address 120.1.1.1 255.255.255.0</span><br><span class="line">no shutdown</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="建立VPN隧道"><a href="#建立VPN隧道" class="headerlink" title="建立VPN隧道"></a>建立VPN隧道</h2><ol>
+<li><p>在路由器四上，建立VPN隧道</p>
+</li>
+<li><p>第一步：创建传输集（策略集）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config terminal</span><br><span class="line">crypto isakmp policy 1</span><br><span class="line">encryption aes</span><br><span class="line">group 2</span><br><span class="line">hash sha</span><br><span class="line">authentication pre-share</span><br><span class="line">exit</span><br><span class="line">crypto isakmp key testVPN address 100.1.1.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二步：设置加密方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">acc 100 permit ip 10.1.1.0 0.0.0.255 192.168.1.0 0.0.0.255</span><br><span class="line">crypto ipsec transform-set VPNtran esp-aes esp-sha-hmac</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第三步：创建map映射表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crypto map testmap 1 ipsec-isakmp</span><br><span class="line">set peer 100.1.1.1</span><br><span class="line">match address 100</span><br><span class="line">set transform-set VPNtran</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第四步：将map映射表应用到接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface f0&#x2F;0</span><br><span class="line">crypto map testmap</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="开通VPN隧道"><a href="#开通VPN隧道" class="headerlink" title="开通VPN隧道"></a>开通VPN隧道</h2><ol>
+<li><p>在路由器一上开通VPN隧道</p>
+</li>
+<li><p>第一步：开通VPN隧道：<code>crypto isakmp key testVPN address 120.1.1.2</code> （其余配置同上，已被设置过）</p>
+</li>
+<li><p>第二步：设置加密算法：<code>acc 102 permit ip 192.168.1.0 0.0.0.255 10.1.1.0 0.0.0.255</code> （其余配置同上，已被设置过）</p>
+</li>
+<li><p>第三步：创建map映射表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crypto map testmap 2 ipsec-isakmp</span><br><span class="line">set peer 120.1.1.2</span><br><span class="line">match address 102</span><br><span class="line">set transform-set VPNtran</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第四步：map表已经映射过了，无需重复设置</p>
+</li>
+</ol>
+<h2 id="修改ACL表"><a href="#修改ACL表" class="headerlink" title="修改ACL表"></a>修改ACL表</h2><ul>
+<li><p>作用：防止被NAT过滤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip access-list extended 101</span><br><span class="line">11 deny ip 192.168.1.0 0.0.0.255 10.1.1.0 0.0.0.255</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="七、IPsecVPN实验四（VPN隧道的使用）"><a href="#七、IPsecVPN实验四（VPN隧道的使用）" class="headerlink" title="七、IPsecVPN实验四（VPN隧道的使用）"></a>七、IPsecVPN实验四（VPN隧道的使用）</h1><ul>
+<li>实验目的：在<strong>实验三</strong>的基础上，实现<code>10.1.1.1</code>用建立好的<strong>VPN隧道</strong>互相通信</li>
+</ul>
+<h2 id="网络拓扑图-3"><a href="#网络拓扑图-3" class="headerlink" title="网络拓扑图"></a>网络拓扑图</h2><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210304171801.png" alt=""></p>
+<h2 id="配置ACL"><a href="#配置ACL" class="headerlink" title="配置ACL"></a>配置ACL</h2><ol>
+<li>在路由器四上配置ACL：<code>access-list 100 permit ip 10.1.1.0 0.0.0.255 172.16.1.0 0.0.0.255</code></li>
+<li>在路由器一上配置ACL：<ul>
+<li><code>acc 100 permit ip 10.1.1.0 0.0.0.255 172.16.1.0 0.0.0.255</code></li>
+<li><code>acc 102 permit ip 172.16.1.0 0.0.0.255 10.1.1.0 0.0.0.255</code></li>
+</ul>
+</li>
+<li>在路由器三上配置ACL：<code>access-list 100 permit ip 172.16.1.0 0.0.0.255 10.1.1.0 0.0.0.255</code></li>
+</ol>
+<h1 id="八、远程访问VPN实验"><a href="#八、远程访问VPN实验" class="headerlink" title="八、远程访问VPN实验"></a>八、远程访问VPN实验</h1><h2 id="实验拓扑图"><a href="#实验拓扑图" class="headerlink" title="实验拓扑图"></a>实验拓扑图</h2><ul>
+<li>实验目的：实现<code>100.1.1.2</code>访问<code>200.1.1.2</code></li>
+</ul>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305145319.png" alt=""></p>
+<h2 id="配置国外服务器"><a href="#配置国外服务器" class="headerlink" title="配置国外服务器"></a>配置国外服务器</h2><ol>
+<li><p>打开国外服务器，设置虚拟网卡为<strong>VMnet2</strong> </p>
+</li>
+<li><p>进入服务器，配置静态IP为<code>200.1.1.2</code> </p>
+</li>
+<li><p>在此服务器上发布一个web网站</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305152414.png" alt=""></p>
+</li>
+</ol>
+<h2 id="配置VPN服务器"><a href="#配置VPN服务器" class="headerlink" title="配置VPN服务器"></a>配置VPN服务器</h2><ol>
+<li><p>打开win2003服务器（VPN服务器），额外添加一个虚拟网卡，并将两个虚拟网卡分别设置为<strong>VMnet1</strong>和<strong>VMnet2</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305150511.png" alt=""></p>
+</li>
+<li><p>进入服务器，给<strong>VMnet1</strong>设置静态IP为<code>100.1.1.1</code>；<strong>VMnet2</strong>设置静态IP为<code>200.1.1.1</code></p>
+</li>
+<li><p><strong>判断</strong>哪个网卡是<strong>VMnet1</strong>，需要打开<strong>虚拟机设置</strong>，<strong>关闭</strong>其中一个<strong>网卡</strong>，即可判断</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305151154.png" alt=""></p>
+</li>
+<li><p>当<strong>国外服务器</strong>配置完成后，<strong>确认</strong>能ping通<strong>国外服务器</strong>，并且可以访问到<strong>web网站</strong></p>
+</li>
+<li><p>进入VPN配置界面</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305155232.png" alt=""></p>
+</li>
+<li><p>选择<strong>自定义</strong>配置</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305155506.png" alt=""></p>
+</li>
+<li><p>勾选相关服务，下一步确认安装即可</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305155621.png" alt=""></p>
+</li>
+<li><p>设置网络地址转换池（NAT）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305160150.png" alt=""></p>
+</li>
+<li><p>选择<strong>接口类型</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305160800.png" alt=""></p>
+</li>
+<li><p><strong>VPN服务器</strong>创建一个<strong>普通账户</strong>，并开启<strong>远程访问</strong>权限</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305161132.png" alt=""></p>
+</li>
+<li><p>设置VPN服务器的IP<strong>地址池</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305161542.png" alt=""></p>
+</li>
+</ol>
+<h2 id="配置win7系统"><a href="#配置win7系统" class="headerlink" title="配置win7系统"></a>配置win7系统</h2><ol>
+<li><p>打开win7系统虚拟机，设置虚拟网卡为<strong>VMnet1</strong></p>
+</li>
+<li><p>进入系统，设置静态IP为：<code>100.1.1.2</code></p>
+</li>
+<li><p>开始安装VPN客户端，选择<strong>连接到工作区</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305153402.png" alt=""></p>
+</li>
+<li><p>选择VPN连接</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305153630.png" alt=""></p>
+</li>
+<li><p>选择稍后连接</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305153843.png" alt=""></p>
+</li>
+<li><p>设置<strong>VPN服务器</strong>的<strong>IP</strong>，并自定义<strong>名称</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305162241.png" alt=""></p>
+</li>
+<li><p>输入VPN账户密码即可</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305154322.png" alt=""></p>
+</li>
+<li><p>进入网络连接，即可查看VPN客户端，点击进入，可更换VPN账户密码</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305154622.png" alt=""></p>
+</li>
+<li><p>访问国外服务器上的web网站</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/068VPN%E6%8A%80%E6%9C%AF/20210305162701.png" alt=""></p>
+</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">wounded-hearts</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wounded-hearts.github.io/posts/46b3e05a/">https://wounded-hearts.github.io/posts/46b3e05a/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wounded-hearts.github.io" target="_blank">乐天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/VPN/">VPN</a><a class="post-meta__tags" href="/tags/IPsecVPN/">IPsecVPN</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210306163342.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><button class="reward-button" type="button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png" alt="微信" onclick="window.open('https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png" alt="支付宝" onclick="window.open('https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/cf5559c6/"><img class="next-cover" data-src="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210302111550.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">安装电脑系统(win10)</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/f73aba26/" title="VPN服务器的搭建"><img class="relatedPosts_cover" data-src="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20200906171235.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-25</div><div class="relatedPosts_title">VPN服务器的搭建</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div class="comments-items-1" data-name="Valine"><div class="vcomment" id="vcomment"></div><script>function loadvaline () {  
+  var requestSetting = function (from,set) {
+    var from = from
+    var setting = set.split(',').filter(function(item){
+    return from.indexOf(item) > -1
+    });
+    setting = setting.length == 0 ? from :setting;
+    return setting
+  }
+
+  var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+  var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+  function initValine () {
+    window.valine = new Valine({
+      el:'#vcomment',
+      appId: '4oIr1DcSynB0TTabT7wc489z-gzGzoHsz',
+      appKey: 'oUN4TXcidEOk3PjLVQaP6OJW',
+      placeholder: '说些什么吧',
+      avatar: 'monsterid',
+      meta: guestInfo,
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: 'https://4oir1dcs.lc-cn-n1-shared.com',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      requiredFields: requiredFields
+    });
+  }
+  loadScript('https://cdn.bootcdn.net/ajax/libs/valine/1.4.14/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || false) {
+  window.addEventListener('load', loadvaline)
+}
+else {
+  function loadOtherComment () {
+    loadvaline()
+  }
+}</script></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By wounded-hearts</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hellow! Welcome to my <a href="https://wounded-hearts.github.io" target="_blank">Blog</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/third-party/ClickShowText.js"></script><script src="/js/search/local-search.js"></script></body></html>
