@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>burp_suite使用教程 | 乐天的博客</title><meta name="description" content="说明：burp_suite是渗透测试中必备的一款测试神器！可以拦截数据包，并对数据包进行其他操作。"><meta name="keywords" content="burp_suite"><meta name="author" content="wounded-hearts"><meta name="copyright" content="wounded-hearts"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wounded-hearts.github.io/posts/b095884b/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="burp_suite使用教程"><meta property="og:url" content="https://wounded-hearts.github.io/posts/b095884b/"><meta property="og:site_name" content="乐天的博客"><meta property="og:description" content="说明：burp_suite是渗透测试中必备的一款测试神器！可以拦截数据包，并对数据包进行其他操作。"><meta property="og:image" content="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210519132513.jpg"><meta property="article:published_time" content="2021-05-19T05:13:59.000Z"><meta property="article:modified_time" content="2021-05-19T05:26:45.477Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="next" title="防火墙技术" href="https://wounded-hearts.github.io/posts/656cc655/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"❤变强❤,❤变强❤,❤我要变强❤,❤努力❤,❤努力❤,❤我要努力❤,❤学习❤,❤学习❤,❤我要学习❤,❤奋斗❤,❤奋斗❤,❤我要奋斗❤,❤加油❤,❤加油❤,❤我要加油❤","fontSize":"20px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-05-19 13:26:45'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/dd.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">70</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">85</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、安装Java环境"><span class="toc-number">1.</span> <span class="toc-text">一、安装Java环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、安装并破解burp-suite"><span class="toc-number">2.</span> <span class="toc-text">二、安装并破解burp_suite</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、burp基本设置"><span class="toc-number">3.</span> <span class="toc-text">三、burp基本设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改字体及字体大小"><span class="toc-number">3.1.</span> <span class="toc-text">修改字体及字体大小</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、安装burp-suite证书"><span class="toc-number">4.</span> <span class="toc-text">四、安装burp suite证书</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、burp常用模块功能"><span class="toc-number">5.</span> <span class="toc-text">五、burp常用模块功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#proxy模块"><span class="toc-number">5.1.</span> <span class="toc-text">proxy模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#target模块"><span class="toc-number">5.2.</span> <span class="toc-text">target模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spider模块"><span class="toc-number">5.3.</span> <span class="toc-text">spider模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#intruder模块"><span class="toc-number">5.4.</span> <span class="toc-text">intruder模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#repeater模块"><span class="toc-number">5.5.</span> <span class="toc-text">repeater模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#comparer模块"><span class="toc-number">5.6.</span> <span class="toc-text">comparer模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、获取手机APP数据包"><span class="toc-number">6.</span> <span class="toc-text">六、获取手机APP数据包</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210519132513.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">乐天的博客</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/images/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">burp_suite使用教程</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2021-05-19 13:13:59"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2021-05-19</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2021-05-19 13:26:45"><i class="fas fa-history fa-fw"></i> 更新于 2021-05-19</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">1k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 3 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="一、安装Java环境"><a href="#一、安装Java环境" class="headerlink" title="一、安装Java环境"></a>一、安装Java环境</h1><ol>
+<li><p>官网下载：<a href="https://www.java.com/zh-CN/" target="_blank" rel="noopener">点击进入</a></p>
+</li>
+<li><p>默认下一步安装即可（避免设置环境变量）</p>
+</li>
+<li><p>验证Java环境是否安装成功<code>java -version</code>，如下图所示</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124003.png" alt=""></p>
+</li>
+</ol>
+<h1 id="二、安装并破解burp-suite"><a href="#二、安装并破解burp-suite" class="headerlink" title="二、安装并破解burp_suite"></a>二、安装并破解burp_suite</h1><ol>
+<li><p>下载burp_suite运行程序（注意：两个文件必须在同一目录下）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124035.png" alt=""></p>
+</li>
+<li><p>运行<strong>burp-loader-keygen-2020_2.jar</strong>文件，点击<strong>run</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124057.png" alt=""></p>
+</li>
+<li><p>复制内容并粘贴到指定位置，如下图所示</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124402.png" alt=""></p>
+</li>
+<li><p>下一步，选择激活</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124432.png" alt=""></p>
+</li>
+<li><p>将激活码<strong>两次</strong>进行复制粘贴</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124454.png" alt=""></p>
+</li>
+<li><p>下一步，直接选择<strong>启动</strong>按钮</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124520.png" alt=""></p>
+</li>
+<li><p>安装完成，进入burp_suite</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124545.png" alt=""></p>
+</li>
+<li><p>再次打开<strong>burp-loader-keygen-2020_2.jar</strong>文件就不会有破解步骤了</p>
+</li>
+</ol>
+<h1 id="三、burp基本设置"><a href="#三、burp基本设置" class="headerlink" title="三、burp基本设置"></a>三、burp基本设置</h1><h2 id="修改字体及字体大小"><a href="#修改字体及字体大小" class="headerlink" title="修改字体及字体大小"></a>修改字体及字体大小</h2><p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124611.png" alt=""></p>
+<h1 id="四、安装burp-suite证书"><a href="#四、安装burp-suite证书" class="headerlink" title="四、安装burp suite证书"></a>四、安装burp suite证书</h1><ol>
+<li><p>作用：可以截取https请求的数据包</p>
+</li>
+<li><p>给浏览器和burp设置相同的代理</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124637.png" alt=""></p>
+</li>
+<li><p>在浏览器中访问<a href="http://burp/下载证书文件" target="_blank" rel="noopener">http://burp/下载证书文件</a></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124712.png" alt=""></p>
+</li>
+<li><p>运行证书，进行安装（默认导入IE浏览器，其他浏览器可手动导入）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124737.png" alt=""></p>
+</li>
+<li><p>选择证书的安装路径</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124802.png" alt=""></p>
+</li>
+</ol>
+<h1 id="五、burp常用模块功能"><a href="#五、burp常用模块功能" class="headerlink" title="五、burp常用模块功能"></a>五、burp常用模块功能</h1><h2 id="proxy模块"><a href="#proxy模块" class="headerlink" title="proxy模块"></a>proxy模块</h2><ol>
+<li><p>作用：burp的核心功能，设置代理获取数据包</p>
+</li>
+<li><p>示例图如下：</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519124828.png" alt=""></p>
+</li>
+<li><p>intercept中各个功能按钮说明</p>
+<ul>
+<li><code>intercept is on/off</code>：开启/关闭代理</li>
+<li><code>forword</code>：释放获取到的数据包（点一次释放一个，第二个数据包继续拦截）</li>
+<li><code>drop</code>：删除获取到的数据包</li>
+<li><code>action</code>：将代理截断的HTTP或HTTPS请求发送到其他模块或做其他处理（数据包中右键可触发）</li>
+<li><code>raw</code>：原始数据</li>
+<li><code>params</code>：各种参数信息</li>
+<li><code>headers</code>：请求头信息</li>
+<li><code>hex</code>：十六进制数据</li>
+</ul>
+</li>
+<li><p>http history功能：可以查看之前获取到的数据包</p>
+</li>
+<li><p>options功能：可以设置很多过滤机制，对数据包进行筛选、修改</p>
+<ul>
+<li><p>删除js验证脚本：可以绕过js验证上传任意文件；也可以在浏览器中手动删除js脚本</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125008.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="target模块"><a href="#target模块" class="headerlink" title="target模块"></a>target模块</h2><ol>
+<li><p>作用：Burp Target组件主要包含站点地图、目标域、Target工具三部分组成，可以帮助渗透测试人员更好地了解目标应用的整体状况、当前的工作涉及哪些目标域、分析可能存在的攻击面等</p>
+</li>
+<li><p><code>scope</code>功能：自定义作用域，可以更加精确的扫描目标站点</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125054.png" alt=""></p>
+</li>
+</ol>
+<h2 id="spider模块"><a href="#spider模块" class="headerlink" title="spider模块"></a>spider模块</h2><ol>
+<li><p>作用：主要使用于大型的应用系统测试，它能在很短的时间内帮助我们快速地了解系统的结构和分布情况（找到隐藏的内容）</p>
+</li>
+<li><p>control功能介绍</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125159.png" alt=""></p>
+</li>
+<li><p>option功能介绍：由<strong>抓取设置</strong>、<strong>抓取代理设置</strong>、<strong>表单提交设置</strong>、<strong>应用登陆设置</strong>、<strong>蜘蛛引擎设置</strong>、<strong>请求消息头设置</strong>六个部分组成</p>
+<ul>
+<li><p>蜘蛛引擎设置：可以设置线程数、重试次数、重试暂停的时间</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125238.png" alt=""></p>
+</li>
+<li><p>请求消息头设置：</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125306.png" alt=""></p>
+</li>
+<li><p>其余设置默认即可</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="intruder模块"><a href="#intruder模块" class="headerlink" title="intruder模块"></a>intruder模块</h2><ol>
+<li><p>作用：在原始请求数据的基础上，通过修改各种请求参数，以获取不同的请求应答；每一次请求中，Intruder通常会携带一个或多个有效攻击载荷(Payload)，在不同的位置进行攻击重放，通过应答数据的比对分析来获得需要的特征数据。</p>
+</li>
+<li><p>应用场景</p>
+<ul>
+<li>枚举信息</li>
+<li>暴力破解账户密码</li>
+<li>网站目录扫描</li>
+</ul>
+</li>
+<li><p>使用步骤</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125334.png" alt=""></p>
+</li>
+<li><p>positions功能介绍：</p>
+<ul>
+<li><p><code>sniper</code>攻击：变量为一个时使用（目录爆破）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125357.png" alt=""></p>
+</li>
+<li><p><code>Cluster bomb</code>攻击：变量为多个，<strong>一对多</strong>的方式进行爆破（账户密码爆破）</p>
+</li>
+<li><p><code>Battering ram</code>攻击，针对多个位置使用一个Payload</p>
+</li>
+<li><p><code>Pitchfork</code>攻击，针对多个位置使用不同的多个Payload</p>
+</li>
+</ul>
+</li>
+<li><p>设置payload</p>
+<ul>
+<li><p>数字类型</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125422.png" alt=""></p>
+</li>
+<li><p>字典类型</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125516.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>options设置</p>
+<ul>
+<li><p>添加正则（获取token值）</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125558.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>运行结果分析：可根据返回状态及长度，判断结果</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125622.png" alt=""></p>
+</li>
+</ol>
+<h2 id="repeater模块"><a href="#repeater模块" class="headerlink" title="repeater模块"></a>repeater模块</h2><ol>
+<li><p>作用：数据包重放</p>
+</li>
+<li><p>相关设置</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125644.png" alt=""></p>
+</li>
+</ol>
+<h2 id="comparer模块"><a href="#comparer模块" class="headerlink" title="comparer模块"></a>comparer模块</h2><ol>
+<li><p>作用：比较两个数据包的不同点与相同点</p>
+</li>
+<li><p>选择数据包</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125711.png" alt=""></p>
+</li>
+<li><p>比较结果</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125727.png" alt=""></p>
+</li>
+</ol>
+<h1 id="六、获取手机APP数据包"><a href="#六、获取手机APP数据包" class="headerlink" title="六、获取手机APP数据包"></a>六、获取手机APP数据包</h1><ol>
+<li><p>设置burp代理</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125811.png" alt=""></p>
+</li>
+<li><p>查看本机IP地址</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125839.png" alt=""></p>
+</li>
+<li><p>手机设置代理</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125856.png" alt=""></p>
+</li>
+<li><p>打开淘宝APP，截取数据包</p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/wlet/blog_images/raw/master/070burp_suite%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/20210519125944.png" alt=""></p>
+</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">wounded-hearts</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wounded-hearts.github.io/posts/b095884b/">https://wounded-hearts.github.io/posts/b095884b/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wounded-hearts.github.io" target="_blank">乐天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/burp-suite/">burp_suite</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210519132513.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><button class="reward-button" type="button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png" alt="微信" onclick="window.open('https://i.loli.net/2020/08/05/ptZkvgcoeabxSm8.png')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png" alt="支付宝" onclick="window.open('https://i.loli.net/2020/08/05/b1DdQvapRXl6uMA.png')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/656cc655/"><img class="next-cover" data-src="https://gitee.com/wlet/blog_images/raw/master/博客文章Logo/20210311172650.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">防火墙技术</div></div></a></div></nav><hr><div id="post-comment"><div class="comment-head"><div class="comment-headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div class="comments-items-1" data-name="Valine"><div class="vcomment" id="vcomment"></div><script>function loadvaline () {  
+  var requestSetting = function (from,set) {
+    var from = from
+    var setting = set.split(',').filter(function(item){
+    return from.indexOf(item) > -1
+    });
+    setting = setting.length == 0 ? from :setting;
+    return setting
+  }
+
+  var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+  var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+  function initValine () {
+    window.valine = new Valine({
+      el:'#vcomment',
+      appId: '4oIr1DcSynB0TTabT7wc489z-gzGzoHsz',
+      appKey: 'oUN4TXcidEOk3PjLVQaP6OJW',
+      placeholder: '说些什么吧',
+      avatar: 'monsterid',
+      meta: guestInfo,
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: 'https://4oir1dcs.lc-cn-n1-shared.com',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      requiredFields: requiredFields
+    });
+  }
+  loadScript('https://cdn.bootcdn.net/ajax/libs/valine/1.4.14/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || false) {
+  window.addEventListener('load', loadvaline)
+}
+else {
+  function loadOtherComment () {
+    loadvaline()
+  }
+}</script></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By wounded-hearts</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hellow! Welcome to my <a href="https://wounded-hearts.github.io" target="_blank">Blog</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/third-party/ClickShowText.js"></script><script src="/js/search/local-search.js"></script></body></html>
